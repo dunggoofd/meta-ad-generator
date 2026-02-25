@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Static Ads Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+  <header class="bg-white border-b border-gray-200 px-6 py-4">
+    <div class="flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">Static Ads Generator</h1>
+        <p class="text-sm text-gray-500 mt-1">Generate Meta static ad creatives with AI</p>
+      </div>
+
+      <!-- Client workspace switcher -->
+      <div class="flex items-center gap-3">
+        <label class="text-sm text-gray-500 font-medium">Workspace</label>
+        <select id="clientSelect"
+          class="text-sm border border-gray-300 rounded-md px-3 py-1.5 bg-white
+                 text-gray-800 shadow-sm focus:outline-none focus:ring-2
+                 focus:ring-indigo-500 focus:border-indigo-500">
+          <option value="">Loading…</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-6 py-10">
+    <p id="clientGreeting" class="text-gray-600">Loading workspace…</p>
+  </main>
+
+  <script>
+    // ── Client workspace management ───────────────────────────────────────────
+
+    let activeClient = null;
+
+    async function loadClients() {
+      const [allRes, activeRes] = await Promise.all([
+        fetch('/api/clients'),
+        fetch('/api/clients/active'),
+      ]);
+
+      const { clients }        = await allRes.json();
+      const { client: current } = await activeRes.json();
+
+      activeClient = current;
+      populateSelect(clients, current);
+      updateGreeting(current);
+    }
+
+    function populateSelect(clients, current) {
+      const select = document.getElementById('clientSelect');
+      select.innerHTML = '';
+
+      clients.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value       = c.id;
+        opt.textContent = c.name;
+        if (current && c.id === current.id) opt.selected = true;
+        select.appendChild(opt);
+      });
+    }
+
+    function updateGreeting(client) {
+      const el = document.getElementById('clientGreeting');
+      el.textContent = client
+        ? `Active workspace: ${client.name}`
+        : 'No workspace selected.';
+    }
+
+    async function switchClient(clientId) {
+      const res  = await fetch('/api/clients/active', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ clientId: parseInt(clientId, 10) }),
+      });
+      const { client } = await res.json();
+      activeClient = client;
+      updateGreeting(client);
+    }
+
+    document.getElementById('clientSelect')
+      .addEventListener('change', e => switchClient(e.target.value));
+
+    // ── Init ──────────────────────────────────────────────────────────────────
+    loadClients().catch(console.error);
+  </script>
+
+</body>
+</html>
