@@ -1,9 +1,8 @@
 const express = require('express');
-const path    = require('path');
 const fs      = require('fs');
 
-const { clientScope }                   = require('../middleware/clientScope');
-const { uploadLogo, handleUploadError } = require('../middleware/upload');
+const { clientScope }                                        = require('../middleware/clientScope');
+const { uploadLogo, handleUploadError, resolveUploadPath }   = require('../middleware/upload');
 const {
   getBrandKitByClientId,
   upsertBrandKit,
@@ -134,13 +133,6 @@ const VARIANT_TO_FIELD = {
   icon:  'icon_url',
 };
 
-// Convert a stored public path ("/uploads/logos/foo.png") to a filesystem path
-// so we can delete the old file when a replacement is uploaded.
-function publicPathToFs(publicPath) {
-  if (!publicPath) return null;
-  return path.join(__dirname, '../public', publicPath);
-}
-
 function unlinkSilent(fsPath) {
   if (!fsPath) return;
   fs.unlink(fsPath, () => {}); // fire-and-forget; missing file is not an error
@@ -168,7 +160,7 @@ router.post(
 
       // Delete the previous file for this variant (if one exists)
       const existing = await getBrandKitByClientId(req.clientId);
-      if (existing) unlinkSilent(publicPathToFs(existing[field]));
+      if (existing) unlinkSilent(resolveUploadPath(existing[field]));
 
       // Persist — if the kit doesn't exist yet, upsertBrandKit creates it
       let kit;
@@ -201,7 +193,7 @@ router.delete('/logo/:variant', async (req, res, next) => {
     if (!existing) return res.status(404).json({ error: 'No brand kit found for this client' });
     if (!existing[field]) return res.status(404).json({ error: `No ${req.params.variant} logo set` });
 
-    unlinkSilent(publicPathToFs(existing[field]));
+    unlinkSilent(resolveUploadPath(existing[field]));
     const kit = await clearLogoField(req.clientId, field);
 
     res.json({ brandKit: kit });

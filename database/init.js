@@ -1,7 +1,19 @@
 const { Pool } = require('pg');
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString:        process.env.DATABASE_URL,
+  connectionTimeoutMillis: 5000,   // fail fast if DB is unreachable
+  idleTimeoutMillis:       30000,  // release idle connections after 30s
+  max:                     10,     // connection pool ceiling
+  ssl: (process.env.DATABASE_URL?.includes('supabase') || process.env.DATABASE_URL?.includes('sslmode=require'))
+      ? { rejectUnauthorized: false }
+      : (process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false),
+});
+
+// Prevent unhandled 'error' events from crashing the process when a pooled
+// client encounters a network blip between requests.
+pool.on('error', (err) => {
+  console.error('[db] Unexpected pool client error:', err.message);
 });
 
 // ── Schema ────────────────────────────────────────────────────────────────────
@@ -194,10 +206,60 @@ const INIT_SQL = `
   ALTER TABLE brand_kits ADD COLUMN IF NOT EXISTS description   TEXT;
   ALTER TABLE brand_kits ADD COLUMN IF NOT EXISTS accent_colors JSONB NOT NULL DEFAULT '[]';
 
-  --
-  -- ALTER TABLE clients            ADD COLUMN IF NOT EXISTS notes TEXT;
-  -- ALTER TABLE generations        ADD COLUMN IF NOT EXISTS cost_usd NUMERIC(10,6);
-  -- ALTER TABLE brand_intelligence ADD COLUMN IF NOT EXISTS confidence NUMERIC(4,2);
+  -- Templates: tags array, favorite flag, and source classification
+  ALTER TABLE templates ADD COLUMN IF NOT EXISTS tags        JSONB   NOT NULL DEFAULT '[]';
+  ALTER TABLE templates ADD COLUMN IF NOT EXISTS is_favorite BOOLEAN NOT NULL DEFAULT FALSE;
+  -- source_type: 'starter' (bundled reference) | 'user' (created/imported) | 'winner' (proven performer)
+  ALTER TABLE templates ADD COLUMN IF NOT EXISTS source_type VARCHAR(50) NOT NULL DEFAULT 'starter';
+
+  CREATE INDEX IF NOT EXISTS idx_templates_is_favorite ON templates (is_favorite);
+  CREATE INDEX IF NOT EXISTS idx_templates_source_type ON templates (source_type);
+  CREATE INDEX IF NOT EXISTS idx_templates_category    ON templates (category);
+
+  -- Assets: original filename and deterministic category derived from MIME type
+  -- category values: 'image' | 'video' | 'font' | 'document' | 'other'
+  ALTER TABLE assets ADD COLUMN IF NOT EXISTS original_name VARCHAR(255);
+  ALTER TABLE assets ADD COLUMN IF NOT EXISTS category      VARCHAR(50) NOT NULL DEFAULT 'image';
+
+  CREATE INDEX IF NOT EXISTS idx_assets_category ON assets (category);
+  -- GIN index for efficient JSONB tag filtering (?| operator)
+  CREATE INDEX IF NOT EXISTS idx_assets_tags ON assets USING gin(tags);
+
+  -- Generations: concept (ad strategy text), avatar (target persona),
+  -- asset_ids (JSONB int[] of brand assets used as input)
+  ALTER TABLE generations ADD COLUMN IF NOT EXISTS concept   TEXT;
+  ALTER TABLE generations ADD COLUMN IF NOT EXISTS avatar    TEXT;
+  ALTER TABLE generations ADD COLUMN IF NOT EXISTS asset_ids JSONB NOT NULL DEFAULT '[]';
+
+  -- generated_images stores normalised { url, width, height, content_type,
+  --   is_selected, score, status } entries — GIN for future filtering
+  CREATE INDEX IF NOT EXISTS idx_generations_asset_ids ON generations USING gin(asset_ids);
+
+  -- Brand intelligence: source tracks origin of the record
+  -- source values: 'ai' (Gemini-generated) | 'manual' (user-created) | 'edited' (AI output refined by user)
+  ALTER TABLE brand_intelligence ADD COLUMN IF NOT EXISTS source VARCHAR(20) NOT NULL DEFAULT 'manual';
+
+  CREATE INDEX IF NOT EXISTS idx_brand_intelligence_source ON brand_intelligence (source);
+
+  -- Campaign batches: top-level record for a bulk generation run
+  -- status values: 'running' | 'done' | 'failed'
+  CREATE TABLE IF NOT EXISTS campaign_batches (
+    id             SERIAL       PRIMARY KEY,
+    client_id      INTEGER      NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+    goal           TEXT,
+    total_items    INTEGER      NOT NULL DEFAULT 0,
+    status         VARCHAR(20)  NOT NULL DEFAULT 'running',
+    metadata       JSONB        NOT NULL DEFAULT '{}',
+    created_at     TIMESTAMPTZ  NOT NULL DEFAULT NOW(),
+    updated_at     TIMESTAMPTZ  NOT NULL DEFAULT NOW()
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_campaign_batches_client ON campaign_batches (client_id);
+
+  -- Link generations back to the batch that spawned them
+  ALTER TABLE generations ADD COLUMN IF NOT EXISTS campaign_batch_id INTEGER REFERENCES campaign_batches(id) ON DELETE SET NULL;
+
+  CREATE INDEX IF NOT EXISTS idx_generations_batch ON generations (campaign_batch_id) WHERE campaign_batch_id IS NOT NULL;
 `;
 
 // ── Bootstrap ─────────────────────────────────────────────────────────────────

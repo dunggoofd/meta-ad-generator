@@ -28,65 +28,2715 @@
     </div>
   </header>
 
-  <main class="max-w-4xl mx-auto px-6 py-10">
-    <p id="clientGreeting" class="text-gray-600">Loading workspace…</p>
+  <main class="max-w-5xl mx-auto px-6 py-8">
+
+    <!-- Brand Setup card -->
+    <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+
+      <!-- Section header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-900">Brand Setup</h2>
+          <p class="text-sm text-gray-500">Configure your brand identity for ad generation</p>
+        </div>
+        <span id="saveStatus" class="text-xs text-gray-400 transition-all"></span>
+      </div>
+
+      <!-- Tab bar -->
+      <div class="flex border-b border-gray-100">
+        <button data-tab="kit"
+          class="tab-btn px-5 py-3 text-sm font-medium text-indigo-600 border-b-2 border-indigo-600">
+          Brand Kit
+        </button>
+        <button data-tab="assets"
+          class="tab-btn px-5 py-3 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-700">
+          Brand Assets
+        </button>
+      </div>
+
+      <!-- ── Brand Kit tab ──────────────────────────────────────────────────── -->
+      <div id="tab-kit" class="tab-panel p-6 grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <!-- Left column: form fields -->
+        <div class="lg:col-span-2 space-y-6">
+
+          <!-- Name & Tagline -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-medium text-gray-700 mb-1">Brand Name</label>
+              <input id="kit-name" type="text" placeholder="Acme Co."
+                class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2
+                       focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-700 mb-1">Tagline</label>
+              <input id="kit-tagline" type="text" placeholder="Just do it."
+                class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2
+                       focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" />
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1">Description</label>
+            <textarea id="kit-description" rows="2" placeholder="What does your brand do?"
+              class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2
+                     focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent resize-none"></textarea>
+          </div>
+
+          <!-- Tone of Voice -->
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1">Tone of Voice</label>
+            <input id="kit-tone" type="text" placeholder="Professional, warm, approachable…"
+              class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2
+                     focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" />
+          </div>
+
+          <!-- Color palettes -->
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-medium text-gray-700 mb-2">Primary Colors</label>
+              <div id="primary-colors" class="color-palette flex flex-wrap gap-2 items-center min-h-[28px]">
+                <button onclick="addColor('primary')" title="Add color"
+                  class="add-color-btn w-7 h-7 rounded-full border-2 border-dashed border-gray-300
+                         flex items-center justify-center text-gray-400 text-base leading-none
+                         hover:border-indigo-400 hover:text-indigo-500 transition-colors">+</button>
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-700 mb-2">Secondary Colors</label>
+              <div id="secondary-colors" class="color-palette flex flex-wrap gap-2 items-center min-h-[28px]">
+                <button onclick="addColor('secondary')" title="Add color"
+                  class="add-color-btn w-7 h-7 rounded-full border-2 border-dashed border-gray-300
+                         flex items-center justify-center text-gray-400 text-base leading-none
+                         hover:border-indigo-400 hover:text-indigo-500 transition-colors">+</button>
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-700 mb-2">Accent Colors</label>
+              <div id="accent-colors" class="color-palette flex flex-wrap gap-2 items-center min-h-[28px]">
+                <button onclick="addColor('accent')" title="Add color"
+                  class="add-color-btn w-7 h-7 rounded-full border-2 border-dashed border-gray-300
+                         flex items-center justify-center text-gray-400 text-base leading-none
+                         hover:border-indigo-400 hover:text-indigo-500 transition-colors">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fonts -->
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-2">Fonts</label>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs text-gray-500 mb-1">Heading</label>
+                <input id="font-heading" type="text" placeholder="e.g. Inter"
+                  class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2
+                         focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" />
+              </div>
+              <div>
+                <label class="block text-xs text-gray-500 mb-1">Body</label>
+                <input id="font-body" type="text" placeholder="e.g. Inter"
+                  class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2
+                         focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" />
+              </div>
+              <div>
+                <label class="block text-xs text-gray-500 mb-1">Accent</label>
+                <input id="font-accent" type="text" placeholder="e.g. Georgia"
+                  class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2
+                         focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" />
+              </div>
+              <div>
+                <label class="block text-xs text-gray-500 mb-1">Mono</label>
+                <input id="font-mono" type="text" placeholder="e.g. JetBrains Mono"
+                  class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2
+                         focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" />
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right column: live brand preview -->
+        <div class="lg:col-span-1">
+          <label class="block text-xs font-medium text-gray-700 mb-2">Live Preview</label>
+          <div id="brand-preview" class="rounded-xl overflow-hidden border border-gray-200 shadow-sm">
+            <!-- Rendered by JS -->
+          </div>
+          <p class="text-xs text-gray-400 mt-2">Updates as you type</p>
+        </div>
+
+      </div>
+
+      <!-- ── Brand Assets tab ──────────────────────────────────────────────── -->
+      <div id="tab-assets" class="tab-panel hidden p-6 space-y-6">
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+
+          <!-- Logo Light -->
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-2">Logo — Light background</label>
+            <div id="logo-zone-light"
+              class="logo-zone relative rounded-xl border-2 border-dashed border-gray-200 bg-gray-50
+                     flex flex-col items-center justify-center min-h-[140px] p-4 gap-2
+                     hover:border-indigo-300 hover:bg-indigo-50 transition cursor-pointer"
+              onclick="document.getElementById('input-logo-light').click()">
+              <img id="preview-logo-light" class="max-h-16 max-w-full object-contain hidden" alt="Logo light" />
+              <div id="empty-logo-light">
+                <div class="text-3xl text-gray-300 text-center">&#9650;</div>
+                <p class="text-xs text-gray-400 text-center mt-1">Click to upload</p>
+              </div>
+              <button id="remove-logo-light"
+                onclick="event.stopPropagation(); removeLogo('light')"
+                class="hidden absolute top-2 right-2 w-6 h-6 rounded-full bg-white shadow-sm border border-gray-200
+                       flex items-center justify-center text-gray-400 hover:text-red-500 text-xs transition-colors">&#10005;</button>
+            </div>
+            <input type="file" id="input-logo-light" accept="image/*" class="hidden"
+              onchange="uploadLogo('light', this)" />
+          </div>
+
+          <!-- Logo Dark -->
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-2">Logo — Dark background</label>
+            <div id="logo-zone-dark"
+              class="logo-zone relative rounded-xl border-2 border-dashed border-gray-700 bg-gray-900
+                     flex flex-col items-center justify-center min-h-[140px] p-4 gap-2
+                     hover:border-indigo-400 transition cursor-pointer"
+              onclick="document.getElementById('input-logo-dark').click()">
+              <img id="preview-logo-dark" class="max-h-16 max-w-full object-contain hidden" alt="Logo dark" />
+              <div id="empty-logo-dark">
+                <div class="text-3xl text-gray-600 text-center">&#9650;</div>
+                <p class="text-xs text-gray-600 text-center mt-1">Click to upload</p>
+              </div>
+              <button id="remove-logo-dark"
+                onclick="event.stopPropagation(); removeLogo('dark')"
+                class="hidden absolute top-2 right-2 w-6 h-6 rounded-full bg-gray-800 border border-gray-600
+                       flex items-center justify-center text-gray-500 hover:text-red-400 text-xs transition-colors">&#10005;</button>
+            </div>
+            <input type="file" id="input-logo-dark" accept="image/*" class="hidden"
+              onchange="uploadLogo('dark', this)" />
+          </div>
+
+          <!-- Icon -->
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-2">Icon / Favicon</label>
+            <div id="logo-zone-icon"
+              class="logo-zone relative rounded-xl border-2 border-dashed border-gray-200 bg-gray-50
+                     flex flex-col items-center justify-center min-h-[140px] p-4 gap-2
+                     hover:border-indigo-300 hover:bg-indigo-50 transition cursor-pointer"
+              onclick="document.getElementById('input-logo-icon').click()">
+              <img id="preview-logo-icon" class="max-h-16 max-w-full object-contain hidden" alt="Icon" />
+              <div id="empty-logo-icon">
+                <div class="text-3xl text-gray-300 text-center">&#9651;</div>
+                <p class="text-xs text-gray-400 text-center mt-1">Click to upload</p>
+              </div>
+              <button id="remove-logo-icon"
+                onclick="event.stopPropagation(); removeLogo('icon')"
+                class="hidden absolute top-2 right-2 w-6 h-6 rounded-full bg-white shadow-sm border border-gray-200
+                       flex items-center justify-center text-gray-400 hover:text-red-500 text-xs transition-colors">&#10005;</button>
+            </div>
+            <input type="file" id="input-logo-icon" accept="image/*" class="hidden"
+              onchange="uploadLogo('icon', this)" />
+          </div>
+
+        </div>
+
+        <p class="text-xs text-gray-400">PNG or SVG recommended. Files are stored on the server and linked to your workspace.</p>
+
+        <!-- Media Library -->
+        <div class="border-t border-gray-100 pt-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-sm font-semibold text-gray-700">Media Library</h3>
+            <span id="assets-upload-status" class="text-xs"></span>
+          </div>
+
+          <div id="assets-dropzone"
+            class="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center
+                   hover:border-indigo-300 hover:bg-indigo-50 transition cursor-pointer"
+            onclick="document.getElementById('assets-file-input').click()"
+            ondragover="event.preventDefault(); this.classList.add('border-indigo-400','bg-indigo-50')"
+            ondragleave="this.classList.remove('border-indigo-400','bg-indigo-50')"
+            ondrop="handleAssetDrop(event)">
+            <div class="text-4xl text-gray-300 mb-2">&#8679;</div>
+            <p class="text-sm text-gray-500">Drag files here or <span class="text-indigo-600 font-medium">browse</span></p>
+            <p class="text-xs text-gray-400 mt-1">JPEG, PNG, WebP, SVG, GIF — up to 10 files, 20 MB each</p>
+          </div>
+          <input type="file" id="assets-file-input" multiple accept="image/*" class="hidden"
+            onchange="handleAssetsUpload(this.files)" />
+
+          <div id="assets-grid" class="mt-4 grid grid-cols-3 sm:grid-cols-5 gap-3"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Brand Intelligence card -->
+    <div class="mt-6 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-900">Brand Intelligence</h2>
+          <p class="text-sm text-gray-500">Strategic profiles: personas, pain points, ad angles</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span id="bi-gen-status" class="text-xs"></span>
+          <button onclick="toggleBiResearchForm()"
+            class="text-xs px-3 py-1.5 rounded-lg border border-indigo-200 bg-indigo-50
+                   text-indigo-700 hover:bg-indigo-100 transition-colors font-medium">
+            Generate
+          </button>
+          <button onclick="openNewBiForm()"
+            class="text-xs px-3 py-1.5 rounded-lg border border-gray-200
+                   text-gray-700 hover:bg-gray-50 transition-colors">
+            + New
+          </button>
+        </div>
+      </div>
+
+      <!-- Research text form (collapsed by default) -->
+      <div id="bi-research-form" class="hidden border-b border-gray-100 bg-gray-50 px-6 py-4">
+        <label class="block text-xs font-medium text-gray-700 mb-1">
+          Research notes
+          <span class="text-gray-400 font-normal">(optional — paste competitor data, customer quotes, market insights)</span>
+        </label>
+        <textarea id="bi-research-text" rows="3"
+          placeholder="e.g. Our customers say they switched from CompetitorX because of high pricing and poor support…"
+          class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 resize-none
+                 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"></textarea>
+        <div class="flex gap-2 mt-3">
+          <button onclick="generateBrandIntelligence()"
+            class="text-xs px-4 py-1.5 rounded-lg bg-indigo-600 text-white
+                   hover:bg-indigo-700 transition-colors font-medium">
+            Generate Intelligence
+          </button>
+          <button onclick="toggleBiResearchForm()"
+            class="text-xs px-3 py-1.5 rounded-lg border border-gray-200
+                   text-gray-600 hover:bg-gray-50 transition-colors">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+      <!-- New profile form (inline, hidden by default) -->
+      <div id="bi-new-form" class="hidden border-b border-gray-100 px-6 py-5 bg-gray-50"></div>
+
+      <!-- Profile list -->
+      <div id="bi-list"></div>
+    </div>
+
+    <!-- Reverse Engineer card -->
+    <div class="mt-6 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-900">Reverse Engineer</h2>
+          <p class="text-sm text-gray-500">Extract style and copy patterns from any winning ad image</p>
+        </div>
+      </div>
+      <div class="px-6 py-5">
+        <div class="flex gap-3">
+          <input id="re-image-url" type="url" placeholder="Paste ad image URL…"
+            class="flex-1 text-sm border border-gray-300 rounded-lg px-3 py-2
+                   focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" />
+          <select id="re-platform"
+            class="text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white
+                   focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent">
+            <option value="">Any placement</option>
+            <option value="Facebook Feed">Facebook Feed</option>
+            <option value="Instagram Feed">Instagram Feed</option>
+            <option value="Instagram Story">Instagram Story</option>
+            <option value="Facebook Story">Facebook Story</option>
+            <option value="Reels">Reels</option>
+          </select>
+          <button id="re-analyze-btn" onclick="analyzeAd()"
+            class="text-sm px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium
+                   hover:bg-indigo-700 transition-colors whitespace-nowrap">
+            Analyze
+          </button>
+        </div>
+        <p id="re-status" class="mt-2 text-xs text-gray-400 hidden"></p>
+      </div>
+    </div>
+
+    <!-- Campaign Builder card -->
+    <div class="mt-6 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-900">Campaign Builder</h2>
+          <p class="text-sm text-gray-500">Plan and generate a full persona × angle ad batch</p>
+        </div>
+        <button onclick="cbReset()"
+          class="text-xs text-gray-400 hover:text-gray-600 px-3 py-1.5 rounded-lg border
+                 border-gray-200 hover:bg-gray-50 transition-colors">
+          Reset
+        </button>
+      </div>
+
+      <!-- Step list -->
+      <div id="cb-steps" class="divide-y divide-gray-100">
+
+        <!-- Step 1: Style Reference -->
+        <div class="cb-step" data-step="1">
+          <button class="w-full flex items-center gap-4 px-6 py-4 hover:bg-gray-50 transition-colors text-left"
+            onclick="cbToggle(1)">
+            <span class="cb-badge flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold border-2 border-gray-300 text-gray-400">1</span>
+            <span class="flex-1">
+              <span class="text-sm font-medium text-gray-800">Style Reference</span>
+              <span id="cb-s1-summary" class="ml-2 text-xs text-gray-400"></span>
+            </span>
+            <span class="cb-chevron text-gray-400 text-sm">&#8964;</span>
+          </button>
+          <div class="cb-body hidden px-6 pb-5">
+            <p class="text-xs text-gray-500 mb-3">Optional — paste a winning ad URL to use as a visual style anchor</p>
+            <div class="flex gap-3">
+              <input id="cb-ref-url" type="url" placeholder="https://…"
+                oninput="cbUpdateSummary(1)"
+                class="flex-1 text-sm border border-gray-300 rounded-lg px-3 py-2
+                       focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" />
+              <button onclick="cbConfirm(1)"
+                class="text-sm px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                Next
+              </button>
+            </div>
+            <p class="mt-2 text-xs text-gray-400">Leave blank to skip style anchoring</p>
+          </div>
+        </div>
+
+        <!-- Step 2: Product Image -->
+        <div class="cb-step" data-step="2">
+          <button class="w-full flex items-center gap-4 px-6 py-4 hover:bg-gray-50 transition-colors text-left"
+            onclick="cbToggle(2)">
+            <span class="cb-badge flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold border-2 border-gray-300 text-gray-400">2</span>
+            <span class="flex-1">
+              <span class="text-sm font-medium text-gray-800">Product Image</span>
+              <span id="cb-s2-summary" class="ml-2 text-xs text-gray-400"></span>
+            </span>
+            <span class="cb-chevron text-gray-400 text-sm">&#8964;</span>
+          </button>
+          <div class="cb-body hidden px-6 pb-5">
+            <p class="text-xs text-gray-500 mb-3">Optional — used as img2img base for every ad in the batch</p>
+            <div class="flex gap-3">
+              <input id="cb-product-url" type="url" placeholder="https://…"
+                oninput="cbUpdateSummary(2)"
+                class="flex-1 text-sm border border-gray-300 rounded-lg px-3 py-2
+                       focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" />
+              <button onclick="cbConfirm(2)"
+                class="text-sm px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                Next
+              </button>
+            </div>
+            <p class="mt-2 text-xs text-gray-400">Leave blank to generate without a product base image</p>
+          </div>
+        </div>
+
+        <!-- Step 3: Profiles -->
+        <div class="cb-step" data-step="3">
+          <button class="w-full flex items-center gap-4 px-6 py-4 hover:bg-gray-50 transition-colors text-left"
+            onclick="cbToggle(3)">
+            <span class="cb-badge flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold border-2 border-gray-300 text-gray-400">3</span>
+            <span class="flex-1">
+              <span class="text-sm font-medium text-gray-800">Profiles</span>
+              <span id="cb-s3-summary" class="ml-2 text-xs text-gray-400"></span>
+            </span>
+            <span class="cb-chevron text-gray-400 text-sm">&#8964;</span>
+          </button>
+          <div class="cb-body hidden px-6 pb-5">
+            <p class="text-xs text-gray-500 mb-3">Select a brand intelligence profile to source personas and ad angles</p>
+            <select id="cb-profile-select" onchange="cbLoadProfilePersonas()"
+              class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white mb-4
+                     focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent">
+              <option value="">— Select a profile —</option>
+            </select>
+            <div id="cb-profile-detail" class="hidden">
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <p class="text-xs font-medium text-gray-700 mb-2">Personas</p>
+                  <div id="cb-persona-list" class="space-y-1.5 max-h-40 overflow-y-auto"></div>
+                </div>
+                <div>
+                  <p class="text-xs font-medium text-gray-700 mb-2">Angles</p>
+                  <div id="cb-angle-list" class="space-y-1.5 max-h-40 overflow-y-auto"></div>
+                </div>
+              </div>
+              <p id="cb-s3-combo-count" class="text-xs text-gray-500 mb-3"></p>
+            </div>
+            <button onclick="cbConfirm(3)"
+              class="text-sm px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+              Next
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 4: Brief -->
+        <div class="cb-step" data-step="4">
+          <button class="w-full flex items-center gap-4 px-6 py-4 hover:bg-gray-50 transition-colors text-left"
+            onclick="cbToggle(4)">
+            <span class="cb-badge flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold border-2 border-gray-300 text-gray-400">4</span>
+            <span class="flex-1">
+              <span class="text-sm font-medium text-gray-800">Brief</span>
+              <span id="cb-s4-summary" class="ml-2 text-xs text-gray-400"></span>
+            </span>
+            <span class="cb-chevron text-gray-400 text-sm">&#8964;</span>
+          </button>
+          <div class="cb-body hidden px-6 pb-5 space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">Campaign Goal</label>
+                <input id="cb-goal" type="text" placeholder="e.g. conversion, awareness"
+                  oninput="cbUpdateSummary(4)"
+                  class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2
+                         focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">Headline</label>
+                <input id="cb-headline" type="text" placeholder="Working headline…"
+                  class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2
+                         focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">CTA</label>
+                <input id="cb-cta" type="text" placeholder="e.g. Shop Now"
+                  class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2
+                         focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">Image Size</label>
+                <select id="cb-image-size"
+                  class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white
+                         focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent">
+                  <option value="square_hd">Square HD (1:1)</option>
+                  <option value="portrait_4_3">Portrait 4:3</option>
+                  <option value="portrait_16_9">Portrait 16:9 (Story)</option>
+                  <option value="landscape_4_3">Landscape 4:3</option>
+                  <option value="landscape_16_9">Landscape 16:9</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-700 mb-1">
+                Ads per combination
+                <span id="cb-apc-label" class="text-indigo-600 font-semibold ml-1">1</span>
+              </label>
+              <input id="cb-ads-per-combo" type="range" min="1" max="3" value="1"
+                oninput="document.getElementById('cb-apc-label').textContent = this.value"
+                class="w-full accent-indigo-600" />
+              <p class="text-xs text-gray-400 mt-0.5">1 = base prompt only · 2 = + close-up · 3 = + wide establishing</p>
+            </div>
+            <div class="flex justify-end">
+              <button onclick="cbConfirm(4)"
+                class="text-sm px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Plan -->
+        <div class="cb-step" data-step="5">
+          <button class="w-full flex items-center gap-4 px-6 py-4 hover:bg-gray-50 transition-colors text-left"
+            onclick="cbToggle(5)">
+            <span class="cb-badge flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold border-2 border-gray-300 text-gray-400">5</span>
+            <span class="flex-1">
+              <span class="text-sm font-medium text-gray-800">Plan</span>
+              <span id="cb-s5-summary" class="ml-2 text-xs text-gray-400"></span>
+            </span>
+            <span class="cb-chevron text-gray-400 text-sm">&#8964;</span>
+          </button>
+          <div class="cb-body hidden px-6 pb-5">
+            <div class="flex items-center justify-between mb-4">
+              <p class="text-xs text-gray-500">AI enriches each persona × angle combo with a prompt and concept</p>
+              <button id="cb-plan-btn" onclick="cbRunPlan()"
+                class="text-sm px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                Generate Plan
+              </button>
+            </div>
+            <div id="cb-plan-matrix" class="hidden">
+              <div id="cb-plan-rows" class="space-y-2 mb-4 max-h-80 overflow-y-auto"></div>
+              <div class="flex justify-end">
+                <button onclick="cbConfirm(5)"
+                  class="text-sm px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                  Proceed to Generate
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6: Generate -->
+        <div class="cb-step" data-step="6">
+          <button class="w-full flex items-center gap-4 px-6 py-4 hover:bg-gray-50 transition-colors text-left"
+            onclick="cbToggle(6)">
+            <span class="cb-badge flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold border-2 border-gray-300 text-gray-400">6</span>
+            <span class="flex-1">
+              <span class="text-sm font-medium text-gray-800">Generate</span>
+              <span id="cb-s6-summary" class="ml-2 text-xs text-gray-400"></span>
+            </span>
+            <span class="cb-chevron text-gray-400 text-sm">&#8964;</span>
+          </button>
+          <div class="cb-body hidden px-6 pb-5">
+            <div id="cb-gen-idle">
+              <p class="text-xs text-gray-500 mb-4">Ready to launch. FAL will generate each ad in the background.</p>
+              <button id="cb-gen-btn" onclick="cbRunGenerate()"
+                class="text-sm px-5 py-2.5 bg-indigo-600 text-white rounded-lg font-medium
+                       hover:bg-indigo-700 transition-colors">
+                Launch Batch
+              </button>
+            </div>
+            <div id="cb-gen-progress" class="hidden">
+              <div class="flex items-center justify-between mb-3">
+                <p id="cb-gen-status-text" class="text-sm font-medium text-gray-800"></p>
+                <span id="cb-gen-counts" class="text-xs text-gray-500"></span>
+              </div>
+              <div class="w-full bg-gray-100 rounded-full h-1.5 mb-4">
+                <div id="cb-gen-bar" class="bg-indigo-500 h-1.5 rounded-full transition-all" style="width:0%"></div>
+              </div>
+              <div id="cb-gen-grid"
+                class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-3"></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /cb-steps -->
+    </div>
+
+    <!-- Quick Generate card -->
+    <div class="mt-6 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-900">Quick Generate</h2>
+          <p class="text-sm text-gray-500">Fire a single ad directly — no campaign setup needed</p>
+        </div>
+        <span id="qg-status" class="text-xs text-gray-400"></span>
+      </div>
+      <div class="px-6 py-5 space-y-4">
+        <!-- Prompt -->
+        <div>
+          <label class="block text-xs font-medium text-gray-700 mb-1">Prompt</label>
+          <textarea id="qg-prompt" rows="3"
+            placeholder="A premium skincare product on a marble surface, soft morning light, minimalist aesthetic…"
+            class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 resize-none
+                   focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"></textarea>
+        </div>
+
+        <!-- Options row -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1">Size</label>
+            <select id="qg-size"
+              class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white
+                     focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent">
+              <option value="square_hd">Square HD (1:1)</option>
+              <option value="portrait_4_3">Portrait 4:3</option>
+              <option value="portrait_16_9">Story 9:16</option>
+              <option value="landscape_4_3">Landscape 4:3</option>
+              <option value="landscape_16_9">Landscape 16:9</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1">Variants</label>
+            <select id="qg-num"
+              class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white
+                     focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent">
+              <option value="1">1 image</option>
+              <option value="2">2 images</option>
+              <option value="3">3 images</option>
+              <option value="4">4 images</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1">Headline</label>
+            <input id="qg-headline" type="text" placeholder="Optional"
+              class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2
+                     focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1">CTA</label>
+            <input id="qg-cta" type="text" placeholder="e.g. Shop Now"
+              class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2
+                     focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" />
+          </div>
+        </div>
+
+        <!-- Product image + brand kit row -->
+        <div class="flex flex-wrap items-center gap-4">
+          <div class="flex-1 min-w-[180px]">
+            <label class="block text-xs font-medium text-gray-700 mb-1">Product image URL <span class="text-gray-400 font-normal">(optional img2img)</span></label>
+            <input id="qg-product-url" type="url" placeholder="https://…"
+              class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2
+                     focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent" />
+          </div>
+          <label class="flex items-center gap-2 mt-4 cursor-pointer select-none">
+            <input type="checkbox" id="qg-brand-kit" class="w-4 h-4 accent-indigo-600" />
+            <span class="text-sm text-gray-700">Inject brand kit</span>
+          </label>
+        </div>
+
+        <!-- Action -->
+        <div class="flex justify-end">
+          <button id="qg-btn" onclick="quickGenerate()"
+            class="px-5 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg
+                   hover:bg-indigo-700 transition-colors disabled:opacity-50">
+            Generate
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Generation History board -->
+    <div class="mt-6 bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-900">Generation History</h2>
+          <p class="text-sm text-gray-500" id="history-subtitle">Recent ad generations for this workspace</p>
+        </div>
+        <button onclick="loadGenerations()"
+          class="text-xs text-gray-500 hover:text-gray-700 px-3 py-1.5 rounded-lg border
+                 border-gray-200 hover:bg-gray-50 transition-colors">
+          Refresh
+        </button>
+      </div>
+      <div id="history-board"
+        class="p-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 min-h-[180px]">
+      </div>
+    </div>
+
   </main>
 
+  <!-- Reverse Engineer modal -->
+  <div id="reverseModal"
+    class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl flex flex-col max-h-[90vh]">
+
+      <!-- Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 flex-shrink-0">
+        <div>
+          <h3 class="font-semibold text-gray-900">Reverse Engineered Ad</h3>
+          <p id="re-modal-meta" class="text-xs text-gray-400 mt-0.5"></p>
+        </div>
+        <button onclick="closeReverseModal()"
+          class="text-gray-400 hover:text-gray-600 text-xl leading-none px-1">&times;</button>
+      </div>
+
+      <!-- Body (scrollable) -->
+      <div id="re-modal-body" class="overflow-y-auto flex-1 p-6 space-y-6"></div>
+
+      <!-- Footer actions -->
+      <div id="re-modal-actions"
+        class="border-t border-gray-100 px-6 py-4 flex flex-wrap gap-3 flex-shrink-0"></div>
+    </div>
+  </div>
+
+  <!-- Asset categorization modal -->
+  <div id="categorizationModal"
+    class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-xl w-full max-w-lg flex flex-col max-h-[85vh]">
+      <div class="px-6 py-4 border-b border-gray-100 flex-shrink-0 flex items-start justify-between gap-4">
+        <div>
+          <h3 class="font-semibold text-gray-900">Categorize uploaded assets</h3>
+          <p class="text-sm text-gray-500 mt-0.5">Pick a type for each file — helps with retrieval and prompt accuracy</p>
+        </div>
+        <button onclick="closeCategorizationModal()"
+          class="flex-shrink-0 text-gray-400 hover:text-gray-600 text-xl leading-none mt-0.5">&times;</button>
+      </div>
+      <div id="categorizationList" class="overflow-y-auto flex-1 divide-y divide-gray-100"></div>
+      <div class="px-6 py-4 border-t border-gray-100 flex-shrink-0 flex items-center justify-between gap-4">
+        <span id="cat-progress" class="text-xs text-gray-400"></span>
+        <button onclick="closeCategorizationModal()"
+          class="px-4 py-2 text-sm font-medium bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Re-prompt modal -->
+  <div id="repromptModal"
+    class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-xl shadow-xl w-full max-w-lg flex flex-col">
+      <div class="flex items-start justify-between px-6 py-4 border-b border-gray-100">
+        <div>
+          <h3 class="font-semibold text-gray-900">Re-prompt Variation</h3>
+          <p id="reprompt-meta" class="text-xs text-gray-400 mt-0.5"></p>
+        </div>
+        <button onclick="closeRepromptModal()" class="text-gray-400 hover:text-gray-600 text-xl leading-none">&times;</button>
+      </div>
+      <div class="px-6 py-5 space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-gray-700 mb-1">New prompt</label>
+          <textarea id="reprompt-prompt" rows="3"
+            class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 resize-none
+                   focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+            placeholder="Describe the variation you want…"></textarea>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1">Strength <span id="reprompt-strength-label" class="text-indigo-600">0.85</span></label>
+            <input id="reprompt-strength" type="range" min="0.1" max="1" step="0.05" value="0.85"
+              oninput="document.getElementById('reprompt-strength-label').textContent = parseFloat(this.value).toFixed(2)"
+              class="w-full accent-indigo-600" />
+            <p class="text-xs text-gray-400 mt-0.5">Low = close to original · High = free variation</p>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-700 mb-1">Variants</label>
+            <select id="reprompt-num"
+              class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white
+                     focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent">
+              <option value="1">1 image</option>
+              <option value="2">2 images</option>
+              <option value="3">3 images</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex justify-end gap-3">
+          <button onclick="closeRepromptModal()"
+            class="px-4 py-2 text-sm border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors">
+            Cancel
+          </button>
+          <button id="reprompt-btn" onclick="submitReprompt()"
+            class="px-5 py-2 text-sm font-medium bg-indigo-600 text-white rounded-lg
+                   hover:bg-indigo-700 transition-colors disabled:opacity-50">
+            Generate Variation
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // ── Client workspace management ───────────────────────────────────────────
+// ── State ─────────────────────────────────────────────────────────────────
+let activeClient = null;
+let brandKit     = null;
 
-    let activeClient = null;
+// Current color arrays (source of truth for UI)
+const colorState = { primary: [], secondary: [], accent: [] };
 
-    async function loadClients() {
-      const [allRes, activeRes] = await Promise.all([
-        fetch('/api/clients'),
-        fetch('/api/clients/active'),
-      ]);
+// ── Utilities ─────────────────────────────────────────────────────────────
 
-      const { clients }        = await allRes.json();
-      const { client: current } = await activeRes.json();
+function debounce(fn, delay) {
+  let timer;
+  return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), delay); };
+}
 
-      activeClient = current;
-      populateSelect(clients, current);
-      updateGreeting(current);
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function relativeTime(ts) {
+  const diff = Date.now() - new Date(ts).getTime();
+  const secs = Math.floor(diff / 1000);
+  if (secs < 60)  return 'just now';
+  const mins = Math.floor(secs / 60);
+  if (mins < 60)  return `${mins}m ago`;
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24)   return `${hrs}h ago`;
+  return `${Math.floor(hrs / 24)}d ago`;
+}
+
+function formatFileSize(bytes) {
+  if (!bytes) return '';
+  if (bytes < 1024)       return `${bytes} B`;
+  if (bytes < 1024*1024)  return `${(bytes/1024).toFixed(0)} KB`;
+  return `${(bytes/(1024*1024)).toFixed(1)} MB`;
+}
+
+// ── Save status indicator ─────────────────────────────────────────────────
+
+function setSaveStatus(msg, cls = 'text-gray-400') {
+  const el = document.getElementById('saveStatus');
+  el.textContent = msg;
+  el.className   = `text-xs transition-all ${cls}`;
+}
+
+// ── Autosave (debounced PATCH) ─────────────────────────────────────────────
+
+const scheduleAutosave = debounce(async () => {
+  if (!activeClient) return;
+  setSaveStatus('Saving…', 'text-yellow-500');
+
+  try {
+    const res = await fetch('/api/brand-kit', {
+      method:  'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(gatherPayload()),
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      setSaveStatus('Save failed', 'text-red-500');
+      return;
     }
 
-    function populateSelect(clients, current) {
-      const select = document.getElementById('clientSelect');
-      select.innerHTML = '';
+    brandKit = data.brandKit;
+    setSaveStatus('Saved', 'text-green-500');
+    setTimeout(() => setSaveStatus(''), 2000);
+  } catch {
+    setSaveStatus('Save failed', 'text-red-500');
+  }
+}, 800);
 
-      clients.forEach(c => {
-        const opt = document.createElement('option');
-        opt.value       = c.id;
-        opt.textContent = c.name;
-        if (current && c.id === current.id) opt.selected = true;
-        select.appendChild(opt);
-      });
+function gatherPayload() {
+  const fonts = {};
+  ['heading', 'body', 'accent', 'mono'].forEach(k => {
+    const v = document.getElementById(`font-${k}`).value.trim();
+    if (v) fonts[k] = v;
+  });
+
+  return {
+    name:           document.getElementById('kit-name').value.trim() || 'Brand Kit',
+    description:    document.getElementById('kit-description').value.trim() || null,
+    tagline:        document.getElementById('kit-tagline').value.trim() || null,
+    tone_of_voice:  document.getElementById('kit-tone').value.trim() || null,
+    primary_colors:   [...colorState.primary],
+    secondary_colors: [...colorState.secondary],
+    accent_colors:    [...colorState.accent],
+    fonts:          Object.keys(fonts).length ? fonts : {},
+  };
+}
+
+// ── Color palette management ───────────────────────────────────────────────
+
+function renderColorPalette(type) {
+  const container = document.getElementById(`${type}-colors`);
+  const addBtn    = container.querySelector('.add-color-btn');
+
+  // Remove existing swatches (leave the + button)
+  container.querySelectorAll('.color-swatch').forEach(el => el.remove());
+
+  colorState[type].forEach((hex, i) => {
+    const inputId = `color-input-${type}-${i}`;
+    const wrap    = document.createElement('div');
+    wrap.className = 'color-swatch relative group';
+    wrap.style.width  = '28px';
+    wrap.style.height = '28px';
+
+    // Colored circle — clicking opens the hidden color picker
+    const circle = document.createElement('div');
+    circle.className = 'w-full h-full rounded-full cursor-pointer shadow-sm ring-1 ring-gray-200 ring-offset-1';
+    circle.style.background = hex;
+    circle.title = hex;
+    circle.addEventListener('click', () => document.getElementById(inputId).click());
+
+    // Hidden native color picker
+    const input = document.createElement('input');
+    input.type    = 'color';
+    input.id      = inputId;
+    input.value   = hex;
+    input.className = 'sr-only';
+    input.addEventListener('input', e => {
+      colorState[type][i] = e.target.value;
+      circle.style.background = e.target.value;
+      circle.title = e.target.value;
+      updatePreview();
+      scheduleAutosave();
+    });
+
+    // Remove button (visible on hover)
+    const removeBtn = document.createElement('button');
+    removeBtn.innerHTML = '&times;';
+    removeBtn.title = 'Remove';
+    removeBtn.className =
+      'absolute -top-1 -right-1 w-4 h-4 rounded-full bg-white border border-gray-200 shadow-sm ' +
+      'text-gray-400 hover:text-red-500 text-xs leading-none items-center justify-center ' +
+      'hidden group-hover:flex transition-colors z-10';
+    removeBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      removeColor(type, i);
+    });
+
+    wrap.appendChild(circle);
+    wrap.appendChild(input);
+    wrap.appendChild(removeBtn);
+    container.insertBefore(wrap, addBtn);
+  });
+}
+
+function addColor(type) {
+  colorState[type].push('#6366f1');
+  renderColorPalette(type);
+  updatePreview();
+  scheduleAutosave();
+}
+
+function removeColor(type, index) {
+  colorState[type].splice(index, 1);
+  renderColorPalette(type);
+  updatePreview();
+  scheduleAutosave();
+}
+
+// ── Live brand preview ────────────────────────────────────────────────────
+
+function updatePreview() {
+  const primary     = colorState.primary[0]   || '#6366f1';
+  const secondary   = colorState.secondary[0] || null;
+  const accent      = colorState.accent[0]    || secondary || '#e0e7ff';
+  const name        = document.getElementById('kit-name').value.trim()    || 'Brand Name';
+  const tagline     = document.getElementById('kit-tagline').value.trim() || 'Your tagline goes here';
+  const headingFont = document.getElementById('font-heading').value.trim() || 'system-ui';
+  const bodyFont    = document.getElementById('font-body').value.trim()    || 'system-ui';
+  const logoUrl     = brandKit?.logo_url || null;
+
+  // Collect all swatches for the palette strip
+  const allColors = [...colorState.primary, ...colorState.secondary, ...colorState.accent];
+
+  const paletteHtml = allColors.length
+    ? `<div class="flex gap-1 flex-wrap mt-2">
+        ${allColors.map(c =>
+          `<span style="background:${c};" class="inline-block w-4 h-4 rounded-sm border border-white border-opacity-20"></span>`
+        ).join('')}
+       </div>`
+    : '';
+
+  const logoHtml = logoUrl
+    ? `<img src="${logoUrl}" alt="logo" style="max-height:32px;max-width:100%;object-fit:contain;margin-bottom:12px;opacity:.9;" />`
+    : `<div style="width:32px;height:32px;border-radius:9999px;background:${accent};opacity:.9;margin-bottom:12px;"></div>`;
+
+  document.getElementById('brand-preview').innerHTML = `
+    <div style="background:${primary};font-family:'${escHtml(headingFont)}',system-ui;padding:20px;color:#fff;">
+      ${logoHtml}
+      <div style="font-size:16px;font-weight:700;line-height:1.3;margin-bottom:4px;">${escHtml(name)}</div>
+      <div style="font-family:'${escHtml(bodyFont)}',system-ui;font-size:11px;opacity:.75;">${escHtml(tagline)}</div>
+      ${paletteHtml}
+    </div>
+    <div style="padding:16px;background:#fff;">
+      <div style="font-size:10px;color:#9ca3af;margin-bottom:4px;">Headline sample</div>
+      <div style="font-family:'${escHtml(headingFont)}',system-ui;font-size:13px;font-weight:600;color:${primary};">
+        ${escHtml(name)} — Ad Headline
+      </div>
+      <div style="font-family:'${escHtml(bodyFont)}',system-ui;font-size:11px;color:#6b7280;margin-top:4px;">
+        Body copy for your ad creative will appear here.
+      </div>
+      <div style="margin-top:12px;">
+        <span style="background:${primary};color:#fff;font-size:11px;padding:5px 14px;border-radius:9999px;display:inline-block;">
+          Shop Now
+        </span>
+      </div>
+    </div>`;
+}
+
+// ── Populate form from saved brand kit ────────────────────────────────────
+
+function populateBrandKit(kit) {
+  brandKit = kit;
+
+  if (!kit) {
+    ['kit-name', 'kit-description', 'kit-tagline', 'kit-tone'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    ['heading', 'body', 'accent', 'mono'].forEach(k => {
+      document.getElementById(`font-${k}`).value = '';
+    });
+    colorState.primary   = [];
+    colorState.secondary = [];
+    colorState.accent    = [];
+    ['primary', 'secondary', 'accent'].forEach(renderColorPalette);
+    updateLogoAsset('light', null);
+    updateLogoAsset('dark',  null);
+    updateLogoAsset('icon',  null);
+    updatePreview();
+    return;
+  }
+
+  document.getElementById('kit-name').value        = kit.name          || '';
+  document.getElementById('kit-description').value = kit.description   || '';
+  document.getElementById('kit-tagline').value      = kit.tagline       || '';
+  document.getElementById('kit-tone').value         = kit.tone_of_voice || '';
+
+  const fonts = kit.fonts || {};
+  ['heading', 'body', 'accent', 'mono'].forEach(k => {
+    document.getElementById(`font-${k}`).value = fonts[k] || '';
+  });
+
+  colorState.primary   = Array.isArray(kit.primary_colors)   ? [...kit.primary_colors]   : [];
+  colorState.secondary = Array.isArray(kit.secondary_colors) ? [...kit.secondary_colors] : [];
+  colorState.accent    = Array.isArray(kit.accent_colors)    ? [...kit.accent_colors]    : [];
+  ['primary', 'secondary', 'accent'].forEach(renderColorPalette);
+
+  updateLogoAsset('light', kit.logo_url);
+  updateLogoAsset('dark',  kit.logo_dark_url);
+  updateLogoAsset('icon',  kit.icon_url);
+  updatePreview();
+}
+
+// ── Logo asset management ─────────────────────────────────────────────────
+
+function updateLogoAsset(variant, url) {
+  const preview   = document.getElementById(`preview-logo-${variant}`);
+  const empty     = document.getElementById(`empty-logo-${variant}`);
+  const removeBtn = document.getElementById(`remove-logo-${variant}`);
+
+  if (url) {
+    preview.src = url;
+    preview.classList.remove('hidden');
+    empty.classList.add('hidden');
+    removeBtn.classList.remove('hidden');
+    removeBtn.classList.add('flex');
+  } else {
+    preview.classList.add('hidden');
+    empty.classList.remove('hidden');
+    removeBtn.classList.add('hidden');
+    removeBtn.classList.remove('flex');
+  }
+}
+
+async function uploadLogo(variant, input) {
+  const file = input.files[0];
+  if (!file) return;
+
+  setSaveStatus('Uploading…', 'text-yellow-500');
+
+  const formData = new FormData();
+  formData.append('logo', file);
+
+  try {
+    const res  = await fetch(`/api/brand-kit/logo/${variant}`, { method: 'POST', body: formData });
+    const data = await res.json();
+
+    if (!res.ok) { setSaveStatus('Upload failed', 'text-red-500'); return; }
+
+    brandKit = data.brandKit;
+    const fieldMap = { light: 'logo_url', dark: 'logo_dark_url', icon: 'icon_url' };
+    updateLogoAsset(variant, brandKit[fieldMap[variant]]);
+    updatePreview();
+    setSaveStatus('Saved', 'text-green-500');
+    setTimeout(() => setSaveStatus(''), 2000);
+  } catch {
+    setSaveStatus('Upload failed', 'text-red-500');
+  }
+
+  // Reset so re-uploading the same file still fires the change event
+  input.value = '';
+}
+
+async function removeLogo(variant) {
+  setSaveStatus('Removing…', 'text-yellow-500');
+  try {
+    const res  = await fetch(`/api/brand-kit/logo/${variant}`, { method: 'DELETE' });
+    const data = await res.json();
+
+    if (!res.ok) { setSaveStatus('Remove failed', 'text-red-500'); return; }
+
+    brandKit = data.brandKit;
+    updateLogoAsset(variant, null);
+    updatePreview();
+    setSaveStatus('Saved', 'text-green-500');
+    setTimeout(() => setSaveStatus(''), 2000);
+  } catch {
+    setSaveStatus('Remove failed', 'text-red-500');
+  }
+}
+
+// ── Tab switching ─────────────────────────────────────────────────────────
+
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.remove('text-indigo-600', 'border-indigo-600');
+    b.classList.add('text-gray-500', 'border-transparent');
+  });
+  document.getElementById(`tab-${name}`).classList.remove('hidden');
+  const active = document.querySelector(`.tab-btn[data-tab="${name}"]`);
+  active.classList.add('text-indigo-600', 'border-indigo-600');
+  active.classList.remove('text-gray-500', 'border-transparent');
+}
+
+document.querySelectorAll('.tab-btn')
+  .forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
+
+// ── Wire autosave to text inputs ──────────────────────────────────────────
+
+['kit-name', 'kit-description', 'kit-tagline', 'kit-tone',
+ 'font-heading', 'font-body', 'font-accent', 'font-mono'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => {
+    updatePreview();
+    scheduleAutosave();
+  });
+});
+
+// ── Asset library ─────────────────────────────────────────────────────────
+
+let assetsLibrary = [];
+
+const CATEGORY_LABELS = {
+  product_image: 'Product Image',
+  packaging:     'Packaging',
+  lifestyle:     'Lifestyle',
+  logo:          'Logo',
+  other:         'Other',
+  image:         'Image',
+  video:         'Video',
+  font:          'Font',
+  document:      'Document',
+};
+
+const CAT_OPTIONS = [
+  { value: 'product_image', label: 'Product Image' },
+  { value: 'packaging',     label: 'Packaging' },
+  { value: 'lifestyle',     label: 'Lifestyle' },
+  { value: 'logo',          label: 'Logo' },
+  { value: 'other',         label: 'Other' },
+];
+
+async function loadAssets() {
+  try {
+    const res = await fetch('/api/assets');
+    const { assets } = await res.json();
+    assetsLibrary = assets;
+    renderAssetGrid();
+  } catch (err) {
+    console.error('Failed to load assets:', err);
+  }
+}
+
+function setAssetsStatus(msg, cls = 'text-gray-400') {
+  const el = document.getElementById('assets-upload-status');
+  el.textContent = msg;
+  el.className   = `text-xs ${cls}`;
+}
+
+async function handleAssetsUpload(files) {
+  if (!files || files.length === 0) return;
+  setAssetsStatus('Uploading…', 'text-yellow-500');
+
+  const formData = new FormData();
+  for (const file of files) formData.append('files', file);
+
+  try {
+    const res  = await fetch('/api/assets', { method: 'POST', body: formData });
+    const data = await res.json();
+
+    if (data.assets && data.assets.length > 0) {
+      assetsLibrary = [...data.assets, ...assetsLibrary];
+      renderAssetGrid();
+      openCategorizationModal(data.assets);
     }
 
-    function updateGreeting(client) {
-      const el = document.getElementById('clientGreeting');
-      el.textContent = client
-        ? `Active workspace: ${client.name}`
-        : 'No workspace selected.';
+    const hasErrors = data.errors && data.errors.length > 0;
+    if (hasErrors) {
+      setAssetsStatus(`${data.assets.length} uploaded, ${data.errors.length} failed`, 'text-red-500');
+    } else {
+      setAssetsStatus('');
+    }
+  } catch {
+    setAssetsStatus('Upload failed', 'text-red-500');
+  }
+
+  document.getElementById('assets-file-input').value = '';
+}
+
+function handleAssetDrop(event) {
+  event.preventDefault();
+  event.currentTarget.classList.remove('border-indigo-400', 'bg-indigo-50');
+  handleAssetsUpload(event.dataTransfer.files);
+}
+
+function renderAssetGrid() {
+  const grid = document.getElementById('assets-grid');
+  if (!grid) return;
+
+  if (assetsLibrary.length === 0) {
+    grid.innerHTML = '';
+    return;
+  }
+
+  grid.innerHTML = assetsLibrary.slice(0, 15).map(asset => {
+    const isImage = asset.file_type && asset.file_type.startsWith('image/');
+    const thumb   = isImage
+      ? `<img src="${escHtml(asset.file_url)}" alt="" class="w-full h-full object-cover" />`
+      : `<div class="w-full h-full flex items-center justify-center text-gray-400 text-2xl">&#128196;</div>`;
+    const label   = CATEGORY_LABELS[asset.category] || asset.category;
+
+    return `
+      <div class="rounded-lg overflow-hidden border border-gray-200 bg-gray-50">
+        <div class="aspect-square overflow-hidden bg-gray-100">${thumb}</div>
+        <div class="px-2 py-1.5">
+          <p class="text-xs text-gray-700 truncate" title="${escHtml(asset.name)}">${escHtml(asset.name)}</p>
+          <span class="text-xs text-indigo-600">${escHtml(label)}</span>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// ── Categorization modal state ─────────────────────────────────────────────
+let _catAssets  = [];
+let _catDoneIds = new Set();
+
+function _catUpdateProgress() {
+  const total = _catAssets.length;
+  const done  = _catDoneIds.size;
+  const el    = document.getElementById('cat-progress');
+  if (!el) return;
+  if (total === 0) { el.textContent = ''; return; }
+  el.textContent = done === total
+    ? `✓ All ${total} categorized`
+    : `${done} of ${total} categorized`;
+  el.className = `text-xs ${done === total ? 'text-green-600 font-medium' : 'text-gray-400'}`;
+}
+
+function openCategorizationModal(assets) {
+  _catAssets  = assets;
+  _catDoneIds = new Set();
+
+  const list = document.getElementById('categorizationList');
+  list.innerHTML = '';
+
+  for (const asset of assets) {
+    const isImage  = asset.file_type && asset.file_type.startsWith('image/');
+    const sizeStr  = formatFileSize(asset.file_size);
+    const detectedLabel = CATEGORY_LABELS[asset.category] || asset.category || '';
+
+    const thumb = isImage
+      ? `<img src="${escHtml(asset.file_url)}" alt=""
+           class="w-14 h-14 object-cover rounded-lg border border-gray-100" />`
+      : `<div class="w-14 h-14 rounded-lg bg-gray-100 border border-gray-100 flex items-center justify-center text-gray-300 text-2xl">&#128196;</div>`;
+
+    const row       = document.createElement('div');
+    row.id          = `cat-row-${asset.id}`;
+    row.className   = 'px-5 py-4 flex items-start gap-4 transition-colors duration-300';
+    row.dataset.assetId = asset.id;
+
+    const preSelected = CAT_OPTIONS.find(c => c.value === asset.category);
+
+    const pillsHtml = CAT_OPTIONS.map(c => {
+      const isActive = preSelected && c.value === preSelected.value;
+      const activeCls = isActive
+        ? 'bg-indigo-600 text-white border-indigo-600'
+        : 'border-gray-200 text-gray-600 hover:bg-indigo-50 hover:border-indigo-300 hover:text-indigo-700';
+      return `<button onclick="setAssetCategory(${asset.id}, '${c.value}', this)"
+        class="cat-btn px-2.5 py-1 text-xs rounded-full border transition-colors ${activeCls}">
+        ${c.label}
+      </button>`;
+    }).join('');
+
+    row.innerHTML = `
+      <div class="flex-shrink-0">${thumb}</div>
+      <div class="flex-1 min-w-0">
+        <div class="flex items-baseline gap-2 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate" title="${escHtml(asset.name)}">${escHtml(asset.name)}</p>
+          ${sizeStr ? `<span class="text-xs text-gray-400 flex-shrink-0">${escHtml(sizeStr)}</span>` : ''}
+        </div>
+        ${detectedLabel && !preSelected ? `<p class="text-xs text-gray-400 mt-0.5">Detected: ${escHtml(detectedLabel)}</p>` : ''}
+        <div class="flex flex-wrap gap-1.5 mt-2">${pillsHtml}</div>
+      </div>
+      <div id="cat-check-${asset.id}" class="flex-shrink-0 w-5 h-5 flex items-center justify-center opacity-0 transition-opacity">
+        <span class="text-green-500 text-base leading-none">&#10003;</span>
+      </div>`;
+
+    list.appendChild(row);
+
+    if (preSelected) {
+      _catDoneIds.add(asset.id);
+    }
+  }
+
+  _catUpdateProgress();
+  document.getElementById('categorizationModal').classList.remove('hidden');
+}
+
+async function setAssetCategory(assetId, category, btn) {
+  const row = document.getElementById(`cat-row-${assetId}`);
+  if (!row) return;
+
+  row.querySelectorAll('.cat-btn').forEach(b => {
+    b.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-600');
+    b.classList.add('border-gray-200', 'text-gray-600');
+    b.classList.remove('hover:bg-indigo-50', 'hover:border-indigo-300', 'hover:text-indigo-700');
+    b.classList.add('hover:bg-indigo-50', 'hover:border-indigo-300', 'hover:text-indigo-700');
+  });
+  btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
+  btn.classList.remove('border-gray-200', 'text-gray-600',
+    'hover:bg-indigo-50', 'hover:border-indigo-300', 'hover:text-indigo-700');
+
+  const check = document.getElementById(`cat-check-${assetId}`);
+  if (check) check.style.opacity = '0';
+
+  try {
+    const res = await fetch(`/api/assets/${assetId}`, {
+      method:  'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ category }),
+    });
+    if (res.ok) {
+      const { asset } = await res.json();
+      const idx = assetsLibrary.findIndex(a => a.id === assetId);
+      if (idx !== -1) assetsLibrary[idx] = asset;
+      renderAssetGrid();
+
+      if (check) { check.style.opacity = '1'; }
+      _catDoneIds.add(assetId);
+      _catUpdateProgress();
+    }
+  } catch {
+    // silent fail — visual selection already updated
+  }
+}
+
+function closeCategorizationModal() {
+  document.getElementById('categorizationModal').classList.add('hidden');
+  _catAssets  = [];
+  _catDoneIds = new Set();
+}
+
+document.getElementById('categorizationModal')
+  .addEventListener('click', e => { if (e.target === e.currentTarget) closeCategorizationModal(); });
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const modal = document.getElementById('categorizationModal');
+    if (!modal.classList.contains('hidden')) closeCategorizationModal();
+  }
+});
+
+let assetsLoaded = false;
+document.querySelector('.tab-btn[data-tab="assets"]')
+  .addEventListener('click', () => {
+    if (!assetsLoaded) { assetsLoaded = true; loadAssets(); }
+  });
+
+// ── Generation history board ───────────────────────────────────────────────
+
+let generationsData  = [];
+let historyPollTimer = null;
+
+function skeletonCards(n) {
+  return Array(n).fill(0).map(() => `
+    <div class="rounded-lg border border-gray-100 overflow-hidden">
+      <div class="aspect-square bg-gray-200 animate-pulse"></div>
+      <div class="p-3 space-y-2">
+        <div class="h-2.5 bg-gray-200 animate-pulse rounded"></div>
+        <div class="h-2 bg-gray-100 animate-pulse rounded w-2/3"></div>
+      </div>
+    </div>`).join('');
+}
+
+function generationCardHtml(g) {
+  const thumb = g.selected_image_url ||
+    (Array.isArray(g.generated_images) && g.generated_images[0]?.url) || null;
+  const label = g.headline || (g.prompt ? g.prompt.slice(0, 60) : '—');
+  const ts    = relativeTime(g.created_at);
+
+  if (g.status === 'pending' || g.status === 'processing') {
+    return `
+      <div class="rounded-lg border border-indigo-200 bg-indigo-50 overflow-hidden">
+        <div class="aspect-square flex flex-col items-center justify-center gap-3">
+          <div class="w-7 h-7 border-2 border-indigo-200 border-t-indigo-500 rounded-full animate-spin"></div>
+          <p class="text-xs text-indigo-400">Generating…</p>
+        </div>
+        <div class="p-3 border-t border-indigo-100">
+          <p class="text-xs text-gray-700 truncate" title="${escHtml(label)}">${escHtml(label)}</p>
+          <span class="text-xs text-indigo-400">${ts}</span>
+        </div>
+      </div>`;
+  }
+
+  if (g.status === 'failed') {
+    const errShort = g.error ? g.error.slice(0, 70) : 'Generation failed';
+    return `
+      <div class="rounded-lg border border-red-200 bg-red-50 overflow-hidden">
+        <div class="aspect-square flex flex-col items-center justify-center gap-2 p-4">
+          <div class="text-red-300 text-3xl leading-none">&#9888;</div>
+          <p class="text-xs text-red-400 text-center leading-relaxed">${escHtml(errShort)}</p>
+        </div>
+        <div class="p-3 border-t border-red-100">
+          <p class="text-xs text-gray-600 truncate" title="${escHtml(label)}">${escHtml(label)}</p>
+          <span class="text-xs text-red-400">Failed · ${ts}</span>
+        </div>
+      </div>`;
+  }
+
+  if (thumb) {
+    return `
+      <div class="group rounded-lg border border-gray-200 overflow-hidden relative">
+        <div class="aspect-square overflow-hidden bg-gray-100">
+          <img src="${escHtml(thumb)}" alt=""
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+        </div>
+        <div class="p-3">
+          <p class="text-xs text-gray-700 truncate" title="${escHtml(label)}">${escHtml(label)}</p>
+          <span class="text-xs text-gray-400">${ts}</span>
+        </div>
+        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all
+                    duration-200 flex flex-col items-center justify-end pb-3 gap-1.5
+                    opacity-0 group-hover:opacity-100">
+          <button onclick="openRepromptModal(${g.id}, ${JSON.stringify(label).replace(/"/g,'&quot;')})"
+            class="bg-indigo-600 text-white text-xs px-3 py-1.5 rounded-lg font-medium
+                   shadow-lg hover:bg-indigo-700 transition-colors w-36 text-center">
+            Re-prompt
+          </button>
+          <button onclick="saveGenerationAsTemplate(${g.id}, this)"
+            class="bg-white text-gray-900 text-xs px-3 py-1.5 rounded-lg font-medium
+                   shadow-lg hover:bg-gray-50 transition-colors w-36 text-center">
+            Save as Template
+          </button>
+        </div>
+      </div>`;
+  }
+
+  return `
+    <div class="rounded-lg border border-gray-200 bg-gray-50 overflow-hidden">
+      <div class="aspect-square flex items-center justify-center bg-gray-100">
+        <span class="text-gray-300 text-4xl leading-none">&#9744;</span>
+      </div>
+      <div class="p-3">
+        <p class="text-xs text-gray-700 truncate">${escHtml(label)}</p>
+        <span class="text-xs text-gray-400">${ts}</span>
+      </div>
+    </div>`;
+}
+
+function renderHistoryBoard(gens) {
+  const board = document.getElementById('history-board');
+  if (!board) return;
+
+  const sub = document.getElementById('history-subtitle');
+
+  if (gens.length === 0) {
+    if (sub) sub.textContent = 'No generations yet';
+    board.innerHTML = `
+      <div class="col-span-full py-10 text-center text-gray-400">
+        <p class="text-sm">No generations yet — create your first ad above.</p>
+      </div>`;
+    return;
+  }
+
+  if (sub) sub.textContent = `${gens.length} generation${gens.length !== 1 ? 's' : ''}`;
+  board.innerHTML = gens.map(g => generationCardHtml(g)).join('');
+}
+
+function schedulePoll() {
+  const hasInFlight = generationsData.some(
+    g => g.status === 'pending' || g.status === 'processing'
+  );
+  if (hasInFlight && !historyPollTimer) {
+    historyPollTimer = setInterval(loadGenerations, 4000);
+  } else if (!hasInFlight && historyPollTimer) {
+    clearInterval(historyPollTimer);
+    historyPollTimer = null;
+  }
+}
+
+async function loadGenerations() {
+  const board = document.getElementById('history-board');
+  if (!board) return;
+
+  if (generationsData.length === 0) board.innerHTML = skeletonCards(8);
+
+  try {
+    const res = await fetch('/api/generations?limit=50');
+    if (!res.ok) return;
+    const { generations } = await res.json();
+    generationsData = generations;
+    renderHistoryBoard(generationsData);
+    schedulePoll();
+  } catch (err) {
+    console.error('Failed to load generations:', err);
+  }
+}
+
+async function saveGenerationAsTemplate(generationId, btn) {
+  const orig = btn.textContent;
+  btn.textContent = 'Saving…';
+  btn.disabled    = true;
+
+  try {
+    const res = await fetch(`/api/generations/${generationId}/save-as-template`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({}),
+    });
+    btn.textContent = res.ok ? 'Saved!' : 'Failed';
+    btn.style.color = res.ok ? '#15803d' : '#b91c1c';
+  } catch {
+    btn.textContent = 'Failed';
+    btn.style.color = '#b91c1c';
+  }
+
+  setTimeout(() => {
+    btn.textContent  = orig;
+    btn.disabled     = false;
+    btn.style.color  = '';
+  }, 2000);
+}
+
+// ── Quick Generate ─────────────────────────────────────────────────────────
+
+function setQgStatus(msg, cls = 'text-gray-400') {
+  const el = document.getElementById('qg-status');
+  if (el) { el.textContent = msg; el.className = `text-xs ${cls}`; }
+}
+
+async function quickGenerate() {
+  const prompt      = document.getElementById('qg-prompt').value.trim();
+  const imageSize   = document.getElementById('qg-size').value;
+  const numImages   = parseInt(document.getElementById('qg-num').value, 10);
+  const headline    = document.getElementById('qg-headline').value.trim() || null;
+  const cta         = document.getElementById('qg-cta').value.trim() || null;
+  const productUrl  = document.getElementById('qg-product-url').value.trim() || null;
+  const applyBrand  = document.getElementById('qg-brand-kit').checked;
+
+  if (!prompt) {
+    document.getElementById('qg-prompt').focus();
+    return;
+  }
+
+  const btn = document.getElementById('qg-btn');
+  btn.disabled = true;
+  setQgStatus('Generating…', 'text-yellow-500');
+
+  try {
+    const res = await fetch('/api/generate', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prompt,
+        image_size:          imageSize,
+        num_images:          numImages,
+        headline,
+        cta,
+        product_image_url:   productUrl,
+        apply_brand_kit:     applyBrand,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      setQgStatus(data.error || 'Generation failed', 'text-red-500');
+    } else {
+      setQgStatus('Queued! Refreshing history…', 'text-green-500');
+      document.getElementById('qg-prompt').value = '';
+      await loadGenerations();
+      setTimeout(() => setQgStatus(''), 3000);
+    }
+  } catch {
+    setQgStatus('Request failed', 'text-red-500');
+  }
+
+  btn.disabled = false;
+}
+
+document.getElementById('qg-prompt')?.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') quickGenerate();
+});
+
+// ── Re-prompt modal ────────────────────────────────────────────────────────
+
+let _repromptSourceId = null;
+
+function openRepromptModal(generationId, label) {
+  _repromptSourceId = generationId;
+  const meta = document.getElementById('reprompt-meta');
+  if (meta) meta.textContent = label ? `Varying: ${label}` : `Generation #${generationId}`;
+
+  const src = generationsData.find(g => g.id === generationId);
+  const ta  = document.getElementById('reprompt-prompt');
+  if (ta && src) ta.value = src.prompt || '';
+
+  document.getElementById('reprompt-strength').value = '0.85';
+  document.getElementById('reprompt-strength-label').textContent = '0.85';
+  document.getElementById('reprompt-num').value = '1';
+
+  document.getElementById('repromptModal').classList.remove('hidden');
+  setTimeout(() => ta?.focus(), 50);
+}
+
+function closeRepromptModal() {
+  document.getElementById('repromptModal').classList.add('hidden');
+  _repromptSourceId = null;
+}
+
+async function submitReprompt() {
+  if (!_repromptSourceId) return;
+
+  const prompt   = document.getElementById('reprompt-prompt').value.trim();
+  const strength = parseFloat(document.getElementById('reprompt-strength').value);
+  const num      = parseInt(document.getElementById('reprompt-num').value, 10);
+
+  if (!prompt) {
+    document.getElementById('reprompt-prompt').focus();
+    return;
+  }
+
+  const btn = document.getElementById('reprompt-btn');
+  btn.disabled    = true;
+  btn.textContent = 'Generating…';
+
+  try {
+    const res = await fetch('/api/generate/edit', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        generation_id: _repromptSourceId,
+        prompt,
+        strength,
+        num_images: num,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      closeRepromptModal();
+      await loadGenerations();
+    } else {
+      btn.textContent = data.error || 'Failed';
+      setTimeout(() => { btn.textContent = 'Generate Variation'; btn.disabled = false; }, 2500);
+      return;
+    }
+  } catch {
+    btn.textContent = 'Request failed';
+    setTimeout(() => { btn.textContent = 'Generate Variation'; btn.disabled = false; }, 2500);
+    return;
+  }
+
+  btn.textContent = 'Generate Variation';
+  btn.disabled    = false;
+}
+
+document.getElementById('repromptModal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeRepromptModal();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !document.getElementById('repromptModal').classList.contains('hidden')) {
+    closeRepromptModal();
+  }
+});
+
+// ── fireGeneration (shared helper) ────────────────────────────────────────
+
+async function fireGeneration(prompt) {
+  try {
+    await fetch('/api/generate', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ prompt }),
+    });
+    await loadGenerations();
+  } catch {}
+}
+
+// ── Brand Intelligence ─────────────────────────────────────────────────────
+
+let biProfiles = [];
+
+const BI_SOURCE_BADGE = {
+  ai:     'bg-blue-50 text-blue-700 border-blue-200',
+  manual: 'bg-gray-100 text-gray-600 border-gray-200',
+  edited: 'bg-purple-50 text-purple-700 border-purple-200',
+};
+const BI_SOURCE_LABEL = { ai: 'AI Generated', manual: 'Manual', edited: 'AI + Edited' };
+
+function setBiGenStatus(msg, cls = 'text-gray-400') {
+  const el = document.getElementById('bi-gen-status');
+  if (el) { el.textContent = msg; el.className = `text-xs ${cls}`; }
+}
+
+function toggleBiResearchForm() {
+  document.getElementById('bi-research-form').classList.toggle('hidden');
+}
+
+async function generateBrandIntelligence() {
+  const researchText = document.getElementById('bi-research-text').value.trim();
+  toggleBiResearchForm();
+  document.getElementById('bi-research-text').value = '';
+  setBiGenStatus('Generating…', 'text-yellow-500');
+
+  try {
+    const res = await fetch('/api/brand-intelligence/generate', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ research_text: researchText || null }),
+    });
+    const data = await res.json();
+    if (!res.ok) { setBiGenStatus(data.error || 'Generation failed', 'text-red-500'); return; }
+    biProfiles.unshift(data.brand_intelligence);
+    renderBiList();
+    setBiGenStatus('Generated', 'text-green-500');
+    setTimeout(() => setBiGenStatus(''), 3000);
+  } catch {
+    setBiGenStatus('Generation failed', 'text-red-500');
+  }
+}
+
+async function loadBrandIntelligence() {
+  try {
+    const res = await fetch('/api/brand-intelligence');
+    if (!res.ok) return;
+    const { brand_intelligence } = await res.json();
+    biProfiles = brand_intelligence;
+    renderBiList();
+    cbPopulateProfiles();
+  } catch {}
+}
+
+function biTagsHtml(arr, style) {
+  if (!Array.isArray(arr) || arr.length === 0) return '<span class="text-xs text-gray-300">—</span>';
+  const cls = style === 'red'   ? 'bg-red-50 text-red-700 border border-red-200'
+            : style === 'green' ? 'bg-green-50 text-green-700 border border-green-200'
+            :                     'bg-gray-100 text-gray-600 border border-gray-200';
+  return arr.map(t =>
+    `<span class="inline-block px-2 py-0.5 rounded-full text-xs ${cls}">${escHtml(String(t))}</span>`
+  ).join(' ');
+}
+
+function biProfileViewHtml(p) {
+  const ra         = p.raw_analysis || {};
+  const badgeCls   = BI_SOURCE_BADGE[p.source]  || BI_SOURCE_BADGE.manual;
+  const badgeLabel = BI_SOURCE_LABEL[p.source]  || 'Manual';
+  const sections   = [];
+
+  if (p.unique_value_prop) sections.push(`
+    <div>
+      <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">Value Proposition</p>
+      <p class="text-sm text-gray-800 leading-relaxed">${escHtml(p.unique_value_prop)}</p>
+    </div>`);
+
+  if (p.target_audience) sections.push(`
+    <div>
+      <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">Target Audience</p>
+      <p class="text-sm text-gray-700">${escHtml(p.target_audience)}</p>
+    </div>`);
+
+  if (p.tone_summary) sections.push(`
+    <div>
+      <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">Tone</p>
+      <p class="text-sm text-gray-700">${escHtml(p.tone_summary)}</p>
+    </div>`);
+
+  const tagsRow = [];
+  if (p.pain_points?.length)    tagsRow.push(`<div><p class="text-xs font-medium text-gray-400 mb-1.5">Pain Points</p><div class="flex flex-wrap gap-1">${biTagsHtml(p.pain_points,'red')}</div></div>`);
+  if (p.differentiators?.length) tagsRow.push(`<div><p class="text-xs font-medium text-gray-400 mb-1.5">Differentiators</p><div class="flex flex-wrap gap-1">${biTagsHtml(p.differentiators,'green')}</div></div>`);
+  if (p.keywords?.length)        tagsRow.push(`<div><p class="text-xs font-medium text-gray-400 mb-1.5">Keywords</p><div class="flex flex-wrap gap-1">${biTagsHtml(p.keywords)}</div></div>`);
+  if (p.competitors?.length)     tagsRow.push(`<div><p class="text-xs font-medium text-gray-400 mb-1.5">Competitors</p><div class="flex flex-wrap gap-1">${biTagsHtml(p.competitors)}</div></div>`);
+  if (tagsRow.length) sections.push(`<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">${tagsRow.join('')}</div>`);
+
+  if (ra.angles?.length) sections.push(`
+    <div>
+      <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1.5">Ad Angles</p>
+      <ul class="space-y-1">
+        ${ra.angles.map(a => `<li class="text-sm text-gray-700 flex gap-1.5"><span class="text-gray-300 flex-shrink-0">›</span>${escHtml(String(a))}</li>`).join('')}
+      </ul>
+    </div>`);
+
+  if (ra.copy_hooks?.length) sections.push(`
+    <div>
+      <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1.5">Copy Hooks</p>
+      <ul class="space-y-1">
+        ${ra.copy_hooks.map(h => `<li class="text-sm text-gray-700 flex gap-1.5"><span class="text-gray-300 flex-shrink-0">›</span>${escHtml(String(h))}</li>`).join('')}
+      </ul>
+    </div>`);
+
+  const visRow = [];
+  if (ra.visual_directions?.length) visRow.push(`<div><p class="text-xs font-medium text-gray-400 mb-1.5">Visual Direction</p><div class="flex flex-wrap gap-1">${biTagsHtml(ra.visual_directions)}</div></div>`);
+  if (ra.emotions?.length)          visRow.push(`<div><p class="text-xs font-medium text-gray-400 mb-1.5">Emotions</p><div class="flex flex-wrap gap-1">${biTagsHtml(ra.emotions)}</div></div>`);
+  if (visRow.length) sections.push(`<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">${visRow.join('')}</div>`);
+
+  if (ra.personas?.length) sections.push(`
+    <div>
+      <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1.5">Personas</p>
+      <div class="grid sm:grid-cols-2 gap-2">
+        ${ra.personas.map(per => `
+          <div class="rounded-lg border border-gray-100 bg-gray-50 px-3 py-2">
+            <p class="text-xs font-semibold text-gray-800">${escHtml(per.name || 'Unnamed')}</p>
+            ${per.description ? `<p class="text-xs text-gray-500 mt-0.5 leading-relaxed">${escHtml(per.description)}</p>` : ''}
+            ${per.goals?.length ? `<div class="mt-1.5 flex flex-wrap gap-1">${biTagsHtml(per.goals)}</div>` : ''}
+          </div>`).join('')}
+      </div>
+    </div>`);
+
+  return `
+    <div class="flex items-center justify-between gap-4 mb-4 flex-wrap">
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="inline-block px-2 py-0.5 text-xs rounded-full border font-medium ${badgeCls}">${badgeLabel}</span>
+        <span class="text-xs text-gray-300">${relativeTime(p.created_at)}</span>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="openBiEdit(${p.id})"
+          class="text-xs px-3 py-1.5 rounded-lg border border-gray-200
+                 text-gray-600 hover:bg-gray-50 transition-colors">Edit</button>
+        <button onclick="deleteBiProfile(${p.id}, this)"
+          class="text-xs px-3 py-1.5 rounded-lg border border-red-200
+                 text-red-500 hover:bg-red-50 transition-colors">Delete</button>
+      </div>
+    </div>
+    <div class="space-y-4">${sections.join('')}</div>`;
+}
+
+function biEditFormHtml(p, isNew) {
+  const ra         = p?.raw_analysis || {};
+  const id         = p?.id;
+  const saveCall   = isNew ? 'saveBiNew()' : `saveBiEdit(${id})`;
+  const cancelCall = isNew ? 'closeNewBiForm()' : `closeBiEdit(${id})`;
+
+  function v(field) { return escHtml(String(p?.[field] || '')); }
+  function arrV(field, fromRa) {
+    const arr = fromRa ? (ra[field] || []) : (p?.[field] || []);
+    return escHtml(Array.isArray(arr) ? arr.join('\n') : '');
+  }
+  function personasV() {
+    return escHtml((ra.personas || []).map(per => `${per.name || ''}|${per.description || ''}`).join('\n'));
+  }
+
+  function ta(field, placeholder, rows, isRa, isPersonas) {
+    const attrs = `data-bi-field="${field}" data-bi-array${isRa ? ' data-bi-ra' : ''}${isPersonas ? ' data-bi-personas' : ''}`;
+    const val   = isPersonas ? personasV() : arrV(field, isRa);
+    return `<textarea ${attrs} rows="${rows}" placeholder="${escHtml(placeholder)}"
+      class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 resize-none
+             focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+    >${val}</textarea>`;
+  }
+  function tf(field, placeholder) {
+    return `<textarea data-bi-field="${field}" rows="2" placeholder="${escHtml(placeholder)}"
+      class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 resize-none
+             focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+    >${v(field)}</textarea>`;
+  }
+
+  return `
+    <div class="space-y-4">
+      <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1">Value Proposition</label>
+        ${tf('unique_value_prop', 'What makes this brand uniquely valuable?')}
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-medium text-gray-700 mb-1">Target Audience</label>
+          <textarea data-bi-field="target_audience" rows="3" placeholder="Who is the ideal customer?"
+            class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 resize-none
+                   focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+          >${v('target_audience')}</textarea>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-700 mb-1">Tone</label>
+          <textarea data-bi-field="tone_summary" rows="3" placeholder="How does the brand communicate?"
+            class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 resize-none
+                   focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent"
+          >${v('tone_summary')}</textarea>
+        </div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-medium text-gray-700 mb-1">Pain Points <span class="text-gray-400 font-normal">(one per line)</span></label>
+          ${ta('pain_points', 'Cost is too high\nToo complicated', 3, false, false)}
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-700 mb-1">Differentiators <span class="text-gray-400 font-normal">(one per line)</span></label>
+          ${ta('differentiators', '10× faster\nNo setup required', 3, false, false)}
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-700 mb-1">Keywords <span class="text-gray-400 font-normal">(one per line)</span></label>
+          ${ta('keywords', 'productivity\nautomation', 3, false, false)}
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-700 mb-1">Competitors <span class="text-gray-400 font-normal">(one per line)</span></label>
+          ${ta('competitors', 'CompetitorA\nCompetitorB', 3, false, false)}
+        </div>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-medium text-gray-700 mb-1">Ad Angles <span class="text-gray-400 font-normal">(one per line)</span></label>
+          ${ta('angles', 'Before/after transformation\nSocial proof headline', 3, true, false)}
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-700 mb-1">Copy Hooks <span class="text-gray-400 font-normal">(one per line)</span></label>
+          ${ta('copy_hooks', 'Stop wasting time on X\nThe secret to Y', 3, true, false)}
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-700 mb-1">Visual Direction <span class="text-gray-400 font-normal">(one per line)</span></label>
+          ${ta('visual_directions', 'Clean white backgrounds\nBold typography', 3, true, false)}
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-700 mb-1">Emotions <span class="text-gray-400 font-normal">(one per line)</span></label>
+          ${ta('emotions', 'Confidence\nExcitement\nRelief', 3, true, false)}
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1">Personas <span class="text-gray-400 font-normal">(one per line: Name | Description)</span></label>
+        ${ta('personas', 'Busy Professional | 30-45, values efficiency\nSmall Business Owner | Bootstrapped, needs ROI', 4, true, true)}
+      </div>
+      <div class="flex gap-2 pt-2">
+        <button onclick="${saveCall}"
+          class="text-xs px-4 py-2 rounded-lg bg-indigo-600 text-white
+                 hover:bg-indigo-700 transition-colors font-medium">Save</button>
+        <button onclick="${cancelCall}"
+          class="text-xs px-3 py-2 rounded-lg border border-gray-200
+                 text-gray-600 hover:bg-gray-50 transition-colors">Cancel</button>
+      </div>
+    </div>`;
+}
+
+function collectBiFormData(container) {
+  const fields = {}, raFields = {};
+  container.querySelectorAll('[data-bi-field]').forEach(el => {
+    const key        = el.dataset.biField;
+    const isArray    = el.hasAttribute('data-bi-array');
+    const isRa       = el.hasAttribute('data-bi-ra');
+    const isPersonas = el.hasAttribute('data-bi-personas');
+    const raw        = el.value.trim();
+
+    if (isPersonas) {
+      raFields.personas = raw.split('\n').map(line => {
+        const [name, ...rest] = line.split('|');
+        return { name: name.trim(), description: rest.join('|').trim(), goals: [], pain_points: [] };
+      }).filter(per => per.name);
+    } else if (isArray) {
+      const arr = raw.split('\n').map(s => s.trim()).filter(Boolean);
+      if (isRa) { raFields[key] = arr; } else { fields[key] = arr; }
+    } else {
+      if (isRa) { raFields[key] = raw || null; } else { fields[key] = raw || null; }
+    }
+  });
+  return { fields, raFields };
+}
+
+function renderBiList() {
+  const list = document.getElementById('bi-list');
+  if (!list) return;
+  if (biProfiles.length === 0) {
+    list.innerHTML = `<div class="px-6 py-10 text-center"><p class="text-sm text-gray-400">No intelligence profiles yet — generate from your brand kit or create manually.</p></div>`;
+    return;
+  }
+  list.innerHTML = biProfiles.map(p => `
+    <div class="bi-profile-card px-6 py-5 border-b border-gray-100 last:border-b-0" data-bi-id="${p.id}">
+      <div id="bi-view-${p.id}">${biProfileViewHtml(p)}</div>
+      <div id="bi-edit-${p.id}" class="hidden mt-5 pt-5 border-t border-gray-100">
+        ${biEditFormHtml(p, false)}
+      </div>
+    </div>`).join('');
+}
+
+function openBiEdit(id) {
+  const card = document.querySelector(`.bi-profile-card[data-bi-id="${id}"]`);
+  if (!card) return;
+  card.querySelector(`#bi-view-${id}`).classList.add('hidden');
+  card.querySelector(`#bi-edit-${id}`).classList.remove('hidden');
+  card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function closeBiEdit(id) {
+  const card = document.querySelector(`.bi-profile-card[data-bi-id="${id}"]`);
+  if (!card) return;
+  card.querySelector(`#bi-view-${id}`).classList.remove('hidden');
+  card.querySelector(`#bi-edit-${id}`).classList.add('hidden');
+}
+
+async function saveBiEdit(id) {
+  const card = document.querySelector(`.bi-profile-card[data-bi-id="${id}"]`);
+  if (!card) return;
+  const { fields, raFields } = collectBiFormData(card.querySelector(`#bi-edit-${id}`));
+  const existing = biProfiles.find(p => p.id === id);
+  fields.raw_analysis = { ...(existing?.raw_analysis || {}), ...raFields };
+
+  try {
+    const res = await fetch(`/api/brand-intelligence/${id}`, {
+      method:  'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(fields),
+    });
+    if (!res.ok) return;
+    const { brand_intelligence: updated } = await res.json();
+    const idx = biProfiles.findIndex(p => p.id === id);
+    if (idx !== -1) biProfiles[idx] = updated;
+    renderBiList();
+  } catch {}
+}
+
+function openNewBiForm() {
+  const form = document.getElementById('bi-new-form');
+  if (!form) return;
+  form.innerHTML = biEditFormHtml(null, true);
+  form.classList.remove('hidden');
+  form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function closeNewBiForm() {
+  const form = document.getElementById('bi-new-form');
+  if (!form) return;
+  form.classList.add('hidden');
+  form.innerHTML = '';
+}
+
+async function saveBiNew() {
+  const form = document.getElementById('bi-new-form');
+  if (!form) return;
+  const { fields, raFields } = collectBiFormData(form);
+  fields.raw_analysis = { ...raFields };
+
+  try {
+    const res = await fetch('/api/brand-intelligence', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(fields),
+    });
+    if (!res.ok) return;
+    const { brand_intelligence: created } = await res.json();
+    biProfiles.unshift(created);
+    closeNewBiForm();
+    renderBiList();
+  } catch {}
+}
+
+async function deleteBiProfile(id, btn) {
+  if (!confirm('Delete this intelligence profile?')) return;
+  btn.disabled = true;
+  try {
+    const res = await fetch(`/api/brand-intelligence/${id}`, { method: 'DELETE' });
+    if (res.ok || res.status === 204) {
+      biProfiles = biProfiles.filter(p => p.id !== id);
+      renderBiList();
+    }
+  } catch { btn.disabled = false; }
+}
+
+// ── Campaign Builder ──────────────────────────────────────────────────────
+
+const cb = {
+  activeStep:   1,
+  completed:    new Set(),
+  refUrl:       '',
+  productUrl:   '',
+  profileId:    null,
+  personas:     [],
+  angles:       [],
+  goal:         '',
+  headline:     '',
+  cta:          '',
+  adsPerCombo:  1,
+  imageSize:    'square_hd',
+  plan:         null,
+  batchId:      null,
+  batchItems:   [],
+  batchStatus:  'idle',
+  pollTimer:    null,
+};
+
+function cbToggle(n) {
+  const steps = document.querySelectorAll('.cb-step');
+  steps.forEach(s => {
+    const sn   = parseInt(s.dataset.step, 10);
+    const body = s.querySelector('.cb-body');
+    if (sn === n) {
+      const isOpen = !body.classList.contains('hidden');
+      body.classList.toggle('hidden', isOpen);
+      s.querySelector('.cb-chevron').innerHTML = isOpen ? '&#8964;' : '&#8963;';
+    }
+  });
+}
+
+function cbOpen(n) {
+  document.querySelectorAll('.cb-step').forEach(s => {
+    const sn   = parseInt(s.dataset.step, 10);
+    const body = s.querySelector('.cb-body');
+    const chev = s.querySelector('.cb-chevron');
+    body.classList.toggle('hidden', sn !== n);
+    chev.innerHTML = sn === n ? '&#8963;' : '&#8964;';
+  });
+}
+
+function cbMarkComplete(n) {
+  cb.completed.add(n);
+  const badge = document.querySelector(`.cb-step[data-step="${n}"] .cb-badge`);
+  if (badge) {
+    badge.className = 'cb-badge flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold border-2 border-green-400 bg-green-50 text-green-600';
+    badge.innerHTML = '&#10003;';
+  }
+}
+
+function cbConfirm(n) {
+  if (n === 3) {
+    const personas = cbSelectedPersonas();
+    const angles   = cbSelectedAngles();
+    if (personas.length === 0 || angles.length === 0) {
+      alert('Select at least one persona and one angle.');
+      return;
+    }
+    cb.personas  = personas;
+    cb.angles    = angles;
+    cb.profileId = parseInt(document.getElementById('cb-profile-select').value, 10) || null;
+  }
+  if (n === 4) {
+    cb.goal        = document.getElementById('cb-goal').value.trim();
+    cb.headline    = document.getElementById('cb-headline').value.trim();
+    cb.cta         = document.getElementById('cb-cta').value.trim();
+    cb.adsPerCombo = parseInt(document.getElementById('cb-ads-per-combo').value, 10) || 1;
+    cb.imageSize   = document.getElementById('cb-image-size').value;
+  }
+  if (n === 1) cb.refUrl     = document.getElementById('cb-ref-url').value.trim();
+  if (n === 2) cb.productUrl = document.getElementById('cb-product-url').value.trim();
+
+  cbMarkComplete(n);
+  cbUpdateSummary(n);
+  cbOpen(n + 1);
+}
+
+function cbUpdateSummary(n) {
+  const el = document.getElementById(`cb-s${n}-summary`);
+  if (!el) return;
+  if (n === 1) el.textContent = cb.refUrl     ? 'URL set'        : 'Skipped';
+  if (n === 2) el.textContent = cb.productUrl ? 'URL set'        : 'Skipped';
+  if (n === 3) {
+    const p = cbSelectedPersonas().length;
+    const a = cbSelectedAngles().length;
+    if (p && a) el.textContent = `${p} persona${p>1?'s':''} × ${a} angle${a>1?'s':''}`;
+  }
+  if (n === 4) {
+    const g = document.getElementById('cb-goal')?.value.trim();
+    el.textContent = g ? `Goal: ${g}` : '';
+  }
+  if (n === 5 && cb.plan) {
+    el.textContent = `${cb.plan.total_ads} ad${cb.plan.total_ads !== 1 ? 's' : ''} planned`;
+  }
+}
+
+function cbReset() {
+  cb.completed.clear();
+  cb.refUrl = cb.productUrl = cb.goal = cb.headline = cb.cta = '';
+  cb.profileId = null; cb.personas = []; cb.angles = [];
+  cb.plan = null; cb.batchId = null; cb.batchItems = []; cb.batchStatus = 'idle';
+  if (cb.pollTimer) { clearInterval(cb.pollTimer); cb.pollTimer = null; }
+
+  document.querySelectorAll('.cb-badge').forEach((b, i) => {
+    b.className = 'cb-badge flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold border-2 border-gray-300 text-gray-400';
+    b.textContent = String(i + 1);
+  });
+  for (let n = 1; n <= 6; n++) {
+    const el = document.getElementById(`cb-s${n}-summary`);
+    if (el) el.textContent = '';
+  }
+  document.getElementById('cb-plan-matrix')?.classList.add('hidden');
+  document.getElementById('cb-plan-btn').textContent = 'Generate Plan';
+  document.getElementById('cb-gen-idle').classList.remove('hidden');
+  document.getElementById('cb-gen-progress').classList.add('hidden');
+
+  cbOpen(1);
+}
+
+function cbPopulateProfiles() {
+  const sel = document.getElementById('cb-profile-select');
+  if (!sel) return;
+  const existing = Array.from(sel.options).map(o => o.value);
+  biProfiles.forEach(p => {
+    if (!existing.includes(String(p.id))) {
+      const opt = document.createElement('option');
+      opt.value       = p.id;
+      opt.textContent = p.unique_value_prop
+        ? `${p.unique_value_prop.slice(0, 50)}…`
+        : `Profile #${p.id}`;
+      sel.appendChild(opt);
+    }
+  });
+}
+
+function cbLoadProfilePersonas() {
+  const id    = parseInt(document.getElementById('cb-profile-select').value, 10);
+  const prof  = biProfiles.find(p => p.id === id);
+  const det   = document.getElementById('cb-profile-detail');
+
+  if (!prof) { det.classList.add('hidden'); return; }
+
+  const ra       = prof.raw_analysis || {};
+  const personas = Array.isArray(ra.personas)
+    ? ra.personas.map(p => typeof p === 'string' ? p : (p?.name || '')).filter(Boolean)
+    : [];
+  const angles   = Array.isArray(ra.angles) ? ra.angles.filter(Boolean) : [];
+
+  function checkboxList(items, containerId) {
+    const c = document.getElementById(containerId);
+    c.innerHTML = items.length
+      ? items.map((item, i) => `
+        <label class="flex items-start gap-2 cursor-pointer">
+          <input type="checkbox" checked value="${escHtml(item)}"
+            onchange="cbUpdateComboCount()"
+            class="mt-0.5 rounded border-gray-300 text-indigo-600 flex-shrink-0" />
+          <span class="text-xs text-gray-700 leading-snug">${escHtml(item)}</span>
+        </label>`).join('')
+      : `<p class="text-xs text-gray-400">None found in this profile</p>`;
+  }
+
+  checkboxList(personas, 'cb-persona-list');
+  checkboxList(angles,   'cb-angle-list');
+  det.classList.remove('hidden');
+  cbUpdateComboCount();
+}
+
+function cbSelectedPersonas() {
+  return Array.from(
+    document.querySelectorAll('#cb-persona-list input[type=checkbox]:checked')
+  ).map(el => el.value);
+}
+
+function cbSelectedAngles() {
+  return Array.from(
+    document.querySelectorAll('#cb-angle-list input[type=checkbox]:checked')
+  ).map(el => el.value);
+}
+
+function cbUpdateComboCount() {
+  const p = cbSelectedPersonas().length;
+  const a = cbSelectedAngles().length;
+  const el = document.getElementById('cb-s3-combo-count');
+  if (el) el.textContent = p && a
+    ? `${p} × ${a} = up to ${Math.min(p * a, 12)} combinations`
+    : '';
+}
+
+async function cbRunPlan() {
+  const btn = document.getElementById('cb-plan-btn');
+  btn.disabled    = true;
+  btn.textContent = 'Planning…';
+
+  try {
+    const body = {
+      personas:      cb.personas,
+      angles:        cb.angles,
+      ads_per_combo: cb.adsPerCombo,
+      image_size:    cb.imageSize,
+    };
+    if (cb.profileId)  body.brand_intelligence_id = cb.profileId;
+    if (cb.goal)       body.goal     = cb.goal;
+    if (cb.headline)   body.headline = cb.headline;
+    if (cb.cta)        body.cta      = cb.cta;
+    if (cb.productUrl) body.product_image_url = cb.productUrl;
+
+    const res  = await fetch('/api/campaign/plan', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    if (!res.ok) { alert(data.error || 'Planning failed'); return; }
+
+    cb.plan = data.plan;
+    cbRenderPlanMatrix(data.plan.items);
+    cbMarkComplete(5);
+    cbUpdateSummary(5);
+  } catch (err) {
+    alert('Network error during planning');
+  } finally {
+    btn.disabled    = false;
+    btn.textContent = cb.plan ? 'Re-plan' : 'Generate Plan';
+  }
+}
+
+function cbRenderPlanMatrix(items) {
+  const rows = document.getElementById('cb-plan-rows');
+  rows.innerHTML = items.map((item, i) => `
+    <div class="bg-gray-50 rounded-lg px-4 py-3 text-xs">
+      <div class="flex items-start justify-between gap-3">
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="font-semibold text-gray-500 w-5 text-right flex-shrink-0">${item.index}.</span>
+            <span class="font-medium text-gray-800 truncate">${escHtml(item.persona)}</span>
+            <span class="text-gray-400">×</span>
+            <span class="text-indigo-700 truncate">${escHtml(item.angle)}</span>
+          </div>
+          ${item.concept ? `<p class="text-gray-500 ml-7 leading-snug">${escHtml(item.concept)}</p>` : ''}
+        </div>
+        <button onclick="cbTogglePlanRow(this)"
+          class="flex-shrink-0 text-gray-400 hover:text-gray-600 text-base leading-none px-1">&#8964;</button>
+      </div>
+      <div class="hidden mt-2 ml-7 space-y-1">
+        ${item.headline ? `<p><span class="text-gray-400">Headline: </span>${escHtml(item.headline)}</p>` : ''}
+        <p class="text-gray-600 leading-relaxed break-words">${escHtml(item.prompt)}</p>
+      </div>
+    </div>`).join('');
+  document.getElementById('cb-plan-matrix').classList.remove('hidden');
+}
+
+function cbTogglePlanRow(btn) {
+  const detail = btn.closest('div.bg-gray-50').querySelector('.hidden, .mt-2');
+  if (!detail) return;
+  const isHidden = detail.classList.contains('hidden');
+  detail.classList.toggle('hidden', !isHidden);
+  btn.innerHTML = isHidden ? '&#8963;' : '&#8964;';
+}
+
+async function cbRunGenerate() {
+  if (!cb.plan || !cb.plan.items?.length) { alert('Complete the Plan step first.'); return; }
+  const btn = document.getElementById('cb-gen-btn');
+  btn.disabled = true;
+
+  try {
+    const res  = await fetch('/api/campaign/generate', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items: cb.plan.items, goal: cb.goal || null }),
+    });
+    const data = await res.json();
+    if (!res.ok) { alert(data.error || 'Launch failed'); btn.disabled = false; return; }
+
+    cb.batchId     = data.batch_id;
+    cb.batchItems  = data.items;
+    cb.batchStatus = 'running';
+
+    document.getElementById('cb-gen-idle').classList.add('hidden');
+    document.getElementById('cb-gen-progress').classList.remove('hidden');
+    cbRenderBatchGrid(data.items);
+    cbUpdateProgress(0, data.total, data.total);
+
+    cb.pollTimer = setInterval(cbPollBatch, 3000);
+  } catch (err) {
+    alert('Network error during launch');
+    btn.disabled = false;
+  }
+}
+
+async function cbPollBatch() {
+  if (!cb.batchId) return;
+  try {
+    const res  = await fetch(`/api/campaign/generate/${cb.batchId}`);
+    const data = await res.json();
+    if (!res.ok) return;
+
+    const batch = data.batch;
+    cb.batchStatus = batch.status;
+    cb.batchItems  = batch.items;
+
+    const done    = batch.items.filter(i => i.status === 'done').length;
+    const failed  = batch.items.filter(i => i.status === 'failed').length;
+    const total   = batch.total_items;
+
+    cbUpdateProgress(done + failed, total, failed);
+    cbRefreshBatchGrid(batch.items);
+
+    if (batch.status !== 'running') {
+      clearInterval(cb.pollTimer);
+      cb.pollTimer = null;
+      cbMarkComplete(6);
+      cbUpdateSummary(6);
+      loadGenerations();
+    }
+  } catch {}
+}
+
+function cbUpdateProgress(completed, total, failed) {
+  const pct  = total ? Math.round((completed / total) * 100) : 0;
+  const done = completed - failed;
+  document.getElementById('cb-gen-bar').style.width    = `${pct}%`;
+  document.getElementById('cb-gen-counts').textContent = `${completed}/${total} complete`;
+  const statusEl = document.getElementById('cb-gen-status-text');
+  if (cb.batchStatus === 'running') {
+    statusEl.textContent = `Generating ${total} ads…`;
+    statusEl.className   = 'text-sm font-medium text-indigo-700';
+  } else if (cb.batchStatus === 'done') {
+    statusEl.textContent = failed ? `Done — ${done} succeeded, ${failed} failed` : `All ${total} ads generated`;
+    statusEl.className   = `text-sm font-medium ${failed ? 'text-yellow-700' : 'text-green-700'}`;
+    const bar = document.getElementById('cb-gen-bar');
+    bar.className = `h-1.5 rounded-full transition-all ${failed ? 'bg-yellow-500' : 'bg-green-500'}`;
+  }
+  const el = document.getElementById('cb-s6-summary');
+  if (el && cb.batchStatus !== 'idle') el.textContent = `${done}/${total} done`;
+}
+
+function cbRenderBatchGrid(items) {
+  const grid = document.getElementById('cb-gen-grid');
+  grid.innerHTML = items.map(item => `
+    <div id="cb-item-${item.generation_id}" class="rounded-lg border border-gray-200 overflow-hidden">
+      <div class="aspect-square bg-gray-100 flex items-center justify-center">
+        <div class="w-5 h-5 border-2 border-gray-200 border-t-indigo-400 rounded-full animate-spin"></div>
+      </div>
+      <div class="p-2">
+        <p class="text-xs text-gray-500 truncate">#${item.index}</p>
+      </div>
+    </div>`).join('');
+}
+
+function cbRefreshBatchGrid(items) {
+  items.forEach(item => {
+    const card = document.getElementById(`cb-item-${item.generation_id}`);
+    if (!card) return;
+
+    if (item.status === 'done' && item.image_url) {
+      card.innerHTML = `
+        <div class="aspect-square overflow-hidden bg-gray-100">
+          <img src="${escHtml(item.image_url)}" alt=""
+            class="w-full h-full object-cover" />
+        </div>
+        <div class="p-2">
+          <p class="text-xs text-gray-600 truncate" title="${escHtml(item.persona || '')}">${escHtml((item.persona || '').slice(0,20))}</p>
+        </div>`;
+    } else if (item.status === 'failed') {
+      card.innerHTML = `
+        <div class="aspect-square bg-red-50 flex flex-col items-center justify-center gap-1 p-2">
+          <span class="text-red-300 text-2xl">&#9888;</span>
+          <p class="text-xs text-red-400 text-center leading-snug">${escHtml((item.error || 'Failed').slice(0, 40))}</p>
+        </div>
+        <div class="p-2"><p class="text-xs text-gray-500 truncate">#${item.index}</p></div>`;
+      card.querySelector('.aspect-square').classList.add('border-red-100');
+    }
+  });
+}
+
+// ── Reverse Engineer ──────────────────────────────────────────────────────
+
+let reverseResult = null;
+
+function reStatus(msg, cls = 'text-gray-400') {
+  const el = document.getElementById('re-status');
+  if (!el) return;
+  el.textContent = msg;
+  el.className   = `mt-2 text-xs ${cls}`;
+  el.classList.toggle('hidden', !msg);
+}
+
+async function analyzeAd() {
+  const urlInput  = document.getElementById('re-image-url');
+  const platform  = document.getElementById('re-platform').value;
+  const btn       = document.getElementById('re-analyze-btn');
+  const imageUrl  = urlInput ? urlInput.value.trim() : '';
+
+  if (!imageUrl) { reStatus('Paste an image URL first.', 'text-red-500'); return; }
+
+  btn.disabled    = true;
+  btn.textContent = 'Analyzing…';
+  reStatus('Fetching and analyzing image…', 'text-indigo-500');
+
+  try {
+    const body = { image_url: imageUrl };
+    if (platform) body.platform = platform;
+
+    const res  = await fetch('/api/prompt/reverse', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(body),
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      reStatus(data.error || 'Analysis failed.', 'text-red-500');
+      return;
     }
 
-    async function switchClient(clientId) {
-      const res  = await fetch('/api/clients/active', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ clientId: parseInt(clientId, 10) }),
-      });
-      const { client } = await res.json();
-      activeClient = client;
-      updateGreeting(client);
-    }
+    reverseResult = { ...data, source_url: imageUrl };
+    reStatus('');
+    openReverseModal();
+  } catch (err) {
+    reStatus('Network error — please try again.', 'text-red-500');
+  } finally {
+    btn.disabled    = false;
+    btn.textContent = 'Analyze';
+  }
+}
 
-    document.getElementById('clientSelect')
-      .addEventListener('change', e => switchClient(e.target.value));
+function openReverseModal() {
+  if (!reverseResult) return;
+  const d = reverseResult;
 
-    // ── Init ──────────────────────────────────────────────────────────────────
-    loadClients().catch(console.error);
+  const meta = document.getElementById('re-modal-meta');
+  if (meta) meta.textContent = `Model: ${d.model || '—'}  ·  ${new Date(d.analyzed_at).toLocaleTimeString()}`;
+
+  const body = document.getElementById('re-modal-body');
+
+  const swatches = (d.analysis?.color_palette || []).map(c =>
+    `<span class="inline-block w-5 h-5 rounded border border-gray-200 align-middle"
+           style="background:${escHtml(c)}" title="${escHtml(c)}"></span>`
+  ).join(' ');
+
+  const hooks = (d.analysis?.hooks || []).map(h =>
+    `<span class="inline-block text-xs bg-gray-100 text-gray-700 rounded-full px-2.5 py-0.5">${escHtml(h)}</span>`
+  ).join(' ');
+
+  const variantRows = (d.variant_prompts || []).map((vp, i) => `
+    <div class="flex gap-3 items-start py-3 border-b border-gray-50 last:border-b-0">
+      <span class="text-xs font-semibold text-gray-400 mt-0.5 w-4 flex-shrink-0">${i + 1}</span>
+      <p class="text-sm text-gray-700 leading-relaxed flex-1">${escHtml(vp)}</p>
+      <button onclick="generateFromVariant(${i})"
+        class="flex-shrink-0 text-xs px-2.5 py-1 rounded-lg border border-indigo-200
+               text-indigo-700 hover:bg-indigo-50 transition-colors whitespace-nowrap">
+        Generate
+      </button>
+    </div>`).join('');
+
+  body.innerHTML = `
+    <div class="flex gap-5">
+      <div class="flex-shrink-0 w-36 h-36 rounded-lg overflow-hidden border border-gray-200 bg-gray-100">
+        <img src="${escHtml(d.source_url)}" alt="Source ad"
+          class="w-full h-full object-cover"
+          onerror="this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center text-gray-300 text-xs\'>No preview</div>'" />
+      </div>
+      <div class="flex-1 space-y-2 text-sm">
+        ${d.analysis?.visual_style ? `<p><span class="text-xs text-gray-400 uppercase tracking-wide">Visual style</span><br/>${escHtml(d.analysis.visual_style)}</p>` : ''}
+        ${d.analysis?.composition  ? `<p><span class="text-xs text-gray-400 uppercase tracking-wide">Composition</span><br/>${escHtml(d.analysis.composition)}</p>` : ''}
+        <div class="flex flex-wrap gap-3 pt-1">
+          ${d.analysis?.mood   ? `<span class="text-xs bg-purple-50 text-purple-700 rounded-full px-2.5 py-0.5">${escHtml(d.analysis.mood)}</span>` : ''}
+          ${d.analysis?.format ? `<span class="text-xs bg-blue-50 text-blue-700 rounded-full px-2.5 py-0.5">${escHtml(d.analysis.format)}</span>` : ''}
+        </div>
+        ${swatches ? `<div class="flex items-center gap-1.5 pt-1">${swatches}</div>` : ''}
+        ${hooks ? `<div class="flex flex-wrap gap-1.5 pt-1">${hooks}</div>` : ''}
+      </div>
+    </div>
+
+    <div>
+      <div class="flex items-center justify-between mb-1.5">
+        <p class="text-xs font-medium text-gray-700 uppercase tracking-wide">Style Prompt</p>
+        <button onclick="copyText('re-style-prompt')"
+          class="text-xs text-gray-400 hover:text-gray-600 transition-colors">Copy</button>
+      </div>
+      <textarea id="re-style-prompt" rows="3"
+        class="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 resize-none
+               focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent
+               text-gray-800 leading-relaxed">${escHtml(d.style_prompt || '')}</textarea>
+    </div>
+
+    ${(d.copy_skeleton?.headline || d.copy_skeleton?.body || d.copy_skeleton?.cta) ? `
+    <div>
+      <p class="text-xs font-medium text-gray-700 uppercase tracking-wide mb-2">Copy Skeleton</p>
+      <div class="space-y-2 bg-gray-50 rounded-lg p-4">
+        ${d.copy_skeleton?.headline ? `
+        <div class="flex gap-2 items-start">
+          <span class="text-xs text-gray-400 w-14 flex-shrink-0 mt-0.5">Headline</span>
+          <p class="text-sm text-gray-800 flex-1">${escHtml(d.copy_skeleton.headline)}</p>
+          <button onclick="copyText(null, ${JSON.stringify(d.copy_skeleton.headline)})"
+            class="text-xs text-gray-400 hover:text-gray-600 flex-shrink-0">Copy</button>
+        </div>` : ''}
+        ${d.copy_skeleton?.body ? `
+        <div class="flex gap-2 items-start">
+          <span class="text-xs text-gray-400 w-14 flex-shrink-0 mt-0.5">Body</span>
+          <p class="text-sm text-gray-800 flex-1">${escHtml(d.copy_skeleton.body)}</p>
+          <button onclick="copyText(null, ${JSON.stringify(d.copy_skeleton.body)})"
+            class="text-xs text-gray-400 hover:text-gray-600 flex-shrink-0">Copy</button>
+        </div>` : ''}
+        ${d.copy_skeleton?.cta ? `
+        <div class="flex gap-2 items-start">
+          <span class="text-xs text-gray-400 w-14 flex-shrink-0 mt-0.5">CTA</span>
+          <p class="text-sm text-gray-800 flex-1">${escHtml(d.copy_skeleton.cta)}</p>
+          <button onclick="copyText(null, ${JSON.stringify(d.copy_skeleton.cta)})"
+            class="text-xs text-gray-400 hover:text-gray-600 flex-shrink-0">Copy</button>
+        </div>` : ''}
+      </div>
+    </div>` : ''}
+
+    ${variantRows ? `
+    <div>
+      <p class="text-xs font-medium text-gray-700 uppercase tracking-wide mb-1.5">Variant Prompts</p>
+      <div class="border border-gray-100 rounded-lg px-3">${variantRows}</div>
+    </div>` : ''}`;
+
+  const actions = document.getElementById('re-modal-actions');
+  const hasVariants = (d.variant_prompts || []).length > 0;
+  actions.innerHTML = `
+    <button onclick="generateFromStylePrompt()"
+      class="text-sm px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium
+             hover:bg-indigo-700 transition-colors">
+      Generate from Style Prompt
+    </button>
+    ${hasVariants ? `
+    <button id="re-gen-all-btn" onclick="generateAllVariants()"
+      class="text-sm px-4 py-2 border border-indigo-200 text-indigo-700 rounded-lg font-medium
+             hover:bg-indigo-50 transition-colors">
+      Generate All Variants (${d.variant_prompts.length})
+    </button>` : ''}
+    <button onclick="closeReverseModal()"
+      class="text-sm px-4 py-2 border border-gray-200 text-gray-600 rounded-lg
+             hover:bg-gray-50 transition-colors ml-auto">
+      Close
+    </button>`;
+
+  document.getElementById('reverseModal').classList.remove('hidden');
+}
+
+function closeReverseModal() {
+  document.getElementById('reverseModal').classList.add('hidden');
+}
+
+function copyText(elId, text) {
+  const str = elId
+    ? (document.getElementById(elId)?.value || document.getElementById(elId)?.textContent || '')
+    : (text || '');
+  navigator.clipboard.writeText(str).catch(() => {});
+}
+
+async function generateFromStylePrompt() {
+  const ta = document.getElementById('re-style-prompt');
+  const prompt = ta ? ta.value.trim() : (reverseResult?.style_prompt || '');
+  if (!prompt) return;
+  await fireGeneration(prompt);
+}
+
+async function generateFromVariant(index) {
+  const vp = reverseResult?.variant_prompts?.[index];
+  if (!vp) return;
+  const btn = event.target;
+  btn.disabled    = true;
+  btn.textContent = '…';
+  await fireGeneration(vp);
+  btn.disabled    = false;
+  btn.textContent = 'Generate';
+}
+
+async function generateAllVariants() {
+  const variants = reverseResult?.variant_prompts || [];
+  if (!variants.length) return;
+  const btn = document.getElementById('re-gen-all-btn');
+  if (btn) { btn.disabled = true; btn.textContent = 'Queuing…'; }
+
+  for (const vp of variants) {
+    await fireGeneration(vp);
+  }
+
+  if (btn) { btn.disabled = false; btn.textContent = `Generate All Variants (${variants.length})`; }
+  closeReverseModal();
+}
+
+document.getElementById('reverseModal').addEventListener('click', function(e) {
+  if (e.target === this) closeReverseModal();
+});
+
+// ── Client workspace management ───────────────────────────────────────────
+
+async function loadBrandKit() {
+  try {
+    const res = await fetch('/api/brand-kit');
+    const { brandKit: kit } = await res.json();
+    populateBrandKit(kit);
+  } catch (err) {
+    console.error('Failed to load brand kit:', err);
+  }
+}
+
+async function loadClients() {
+  const [allRes, activeRes] = await Promise.all([
+    fetch('/api/clients'),
+    fetch('/api/clients/active'),
+  ]);
+  const { clients }         = await allRes.json();
+  const { client: current } = await activeRes.json();
+
+  activeClient = current;
+  populateSelect(clients, current);
+  await Promise.all([loadBrandKit(), loadGenerations(), loadBrandIntelligence()]);
+}
+
+function populateSelect(clients, current) {
+  const select = document.getElementById('clientSelect');
+  select.innerHTML = '';
+  clients.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value       = c.id;
+    opt.textContent = c.name;
+    if (current && c.id === current.id) opt.selected = true;
+    select.appendChild(opt);
+  });
+}
+
+async function switchClient(clientId) {
+  const res = await fetch('/api/clients/active', {
+    method:  'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ clientId: parseInt(clientId, 10) }),
+  });
+  const { client } = await res.json();
+  activeClient = client;
+  await Promise.all([loadBrandKit(), loadBrandIntelligence()]);
+}
+
+document.getElementById('clientSelect')
+  .addEventListener('change', e => switchClient(e.target.value));
+
+// ── Init ──────────────────────────────────────────────────────────────────
+updatePreview();
+cbOpen(1);
+loadClients().catch(console.error);
   </script>
 
 </body>

@@ -1,0 +1,17 @@
+modules = ["nodejs-22"]
+run = "npm install && node server.js"
+entrypoint = "server.js"
+
+[nix]
+channel = "stable-24_11"
+
+[deployment]
+run = ["sh", "-c", "npm install && node server.js"]
+deploymentTarget = "cloudrun"
+
+[[ports]]
+localPort = 3000
+externalPort = 80
+
+[env]
+NODE_ENV = "production"

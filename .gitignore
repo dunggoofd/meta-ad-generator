@@ -1,4 +1,14 @@
 node_modules/
 .env
+
+# Upload directories — keep the folders tracked but not their contents
 public/uploads/logos/*
 !public/uploads/logos/.gitkeep
+public/uploads/thumbnails/*
+!public/uploads/thumbnails/.gitkeep
+public/uploads/assets/*
+!public/uploads/assets/.gitkeep
+
+# Claude Code artifacts
+.claude/
+scratchpad.md
